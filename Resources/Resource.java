@@ -1,4 +1,6 @@
 package Resources;
+import enums.ResourceType;
+
 
 
 public class Resource{
