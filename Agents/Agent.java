@@ -3,7 +3,10 @@ package Agents;
 abstract class Agents
 {
     // --------------------------- Attributes ----------------------------------
-
+    ColonyFacility currentLocation;
+    String[] healthStatus = {"healthy", "moderate", "unhealthy"};
+    String id;
+    boolean onMission;
 
     // --------------------------- Abstract Methods ----------------------------------
     public abstract boolean canPerformMission(Mission mission);
