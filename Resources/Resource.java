@@ -1,4 +1,4 @@
-package Resource;
+package Resources;
 
 
 public class Resource{
