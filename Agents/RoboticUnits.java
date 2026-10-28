@@ -1,5 +1,7 @@
 package Agents;
 import enums.HealthStatus;
+import Equipment.Equipment;
+import Locations.Location;
 
 
 public abstract class RoboticUnits extends Agent {
