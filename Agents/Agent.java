@@ -23,8 +23,7 @@ public abstract class Agent
     }
 
     // --------------------------- Abstract Methods ----------------------------------
-    public abstract boolean canPerformMission(Mission mission);
-    public abstract boolean isUsable();
+    public abstract boolean isUsable();  // health status, fatigue levels and isAvailable
 
     // ------------------------ Concrete Methods ---------------------------------------
     public HealthStatus getHealth() {return healthStatus;}
@@ -46,8 +45,8 @@ public abstract class Agent
 
     }
 
-    public boolean isAvailable()
+    public boolean canPerformMission(Mission mission)  // checks isUsable and skills
     {
-        if()
+
     }
 }
