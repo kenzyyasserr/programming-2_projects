@@ -1,31 +1,25 @@
 package Agents;
 import enums.HealthStatus;
-import Missions.*;
+import Missions.Mission;
 import Locations.ColonyFacility;
 import Locations.Location;
 
 
-abstract class Agent
+public abstract class Agent
 {
     // --------------------------- Attributes ----------------------------------
-    private ColonyFacility currentLocation;
-    private HealthStatus healthStatus;
-    private String id;
-    private boolean onMission;
+    protected ColonyFacility currentLocation;
+    protected HealthStatus healthStatus;
+    protected String id;
+    protected boolean onMission;
 
-    // -------------------------- Constructors ---------------------------------------
-    public Agent(ColonyFacility currentLocation, String id, boolean onMission)
+    // -------------------------- Constructor ---------------------------------------
+    protected Agent(ColonyFacility currentLocation, String id, boolean onMission)
     {
         this.currentLocation = currentLocation;
         this.healthStatus = HealthStatus.HEALTHY; // Default health status
         this.id = id;
         this.onMission = onMission;
-    }
-
-    public HumanPersonnel(String name, Skill[] skills, int fatigueLevel)
-    {
-        this.name = name;
-
     }
 
     // --------------------------- Abstract Methods ----------------------------------
@@ -37,9 +31,15 @@ abstract class Agent
     public Location getCurrentLocation() {return currentLocation;}
     public String getId() {return id;}
 
-    public void setCurrentLocation(Location location) {currentLocation = location;}
+    public void setCurrentLocation(ColonyFacility location) {this.currentLocation = location;}
 
-    public void setOnMission(Mission mission) {Mission = mission;}
+    public void setOnMission(Mission mission)
+    {
+        if(mission != null)
+            this.onMission = true;
+        else
+            this.onMission = false;
+    }
 
     public void changeHealth(String status)
     {
@@ -48,6 +48,6 @@ abstract class Agent
 
     public boolean isAvailable()
     {
-
+        if()
     }
 }

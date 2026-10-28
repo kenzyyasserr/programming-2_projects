@@ -1,4 +1,6 @@
-abstract class Mission
+package Missions;
+
+public abstract class Mission
 {
-    
+
 }
