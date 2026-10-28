@@ -3,6 +3,7 @@ import Locations.ColonyFacility;
 import Locations.Location;
 import Missions.Mission;
 import enums.HealthStatus;
+import enums.Skill;
 
 
 public abstract class Agent
@@ -23,7 +24,7 @@ public abstract class Agent
     }
 
     // --------------------------- Abstract Methods ----------------------------------
-    public abstract boolean isUsable();  // health status, fatigue levels and isAvailable
+    public abstract boolean isUsable(Skill skill);  // health status, fatigue levels and isAvailable + recalls hasSkill
 
     // ------------------------ Concrete Methods ---------------------------------------
     public HealthStatus getHealth() {return healthStatus;}
@@ -42,20 +43,14 @@ public abstract class Agent
 
     public void changeHealth(HealthStatus status) {healthStatus = status;}
 
-    public boolean canPerformMission(Mission mission)  // checks isUsable and skills
+    public boolean canPerformMission(Skill skill)  // checks isUsable
     {
-        if(isUsable() && canPerformMission(mission))
+        if(isUsable(skill)){
+            System.out.println("This personnel can perform mission as they are usable");
             return true;
-        else if(isUsable() && !canPerformMission(mission)){
-            System.out.println("This personnel cannot perform mission as they are not skilled for it");
-            return false;
-        }
-        else if(!isUsable() && canPerformMission(mission)){
-            System.out.println("This personnel cannot perform mission as they are not available");
-            return false;
         }
         else{
-            System.out.println("This personnel cannot perform mission as they are unavailable and not skilled");
+            System.out.println("This personnel cannot perform mission as they are unusable");
             return false;
         }
     }

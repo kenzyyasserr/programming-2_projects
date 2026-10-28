@@ -16,7 +16,7 @@ public abstract class HumanPersonnel extends Agent
     public void setName(String name){this.name = name;}
 
     // ---------------------- Abstract Methods -----------------------------
-    abstract boolean hasSkill(Skill skill);
+    public abstract boolean hasSkill(Skill skill);
 
     // ---------------------- Constructor ------------------------------
     public HumanPersonnel(String name, Skill[] skills, int fatigueLevel)
