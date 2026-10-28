@@ -1,8 +1,8 @@
 package Agents;
-import enums.HealthStatus;
-import Missions.Mission;
 import Locations.ColonyFacility;
 import Locations.Location;
+import Missions.Mission;
+import enums.HealthStatus;
 
 
 public abstract class Agent
@@ -40,13 +40,23 @@ public abstract class Agent
             this.onMission = false;
     }
 
-    public void changeHealth(String status)
-    {
-
-    }
+    public void changeHealth(HealthStatus status) {healthStatus = status;}
 
     public boolean canPerformMission(Mission mission)  // checks isUsable and skills
     {
-
+        if(isUsable() && canPerformMission(mission))
+            return true;
+        else if(isUsable() && !canPerformMission(mission)){
+            System.out.println("This personnel cannot perform mission as they are not skilled for it");
+            return false;
+        }
+        else if(!isUsable() && canPerformMission(mission)){
+            System.out.println("This personnel cannot perform mission as they are not available");
+            return false;
+        }
+        else{
+            System.out.println("This personnel cannot perform mission as they are unavailable and not skilled");
+            return false;
+        }
     }
 }
