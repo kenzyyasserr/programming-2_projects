@@ -8,13 +8,14 @@ public abstract class HumanPersonnel extends Agent
     protected Skill[] skills;
     protected int fatigueLevel;
 
-    // ------------------------------ Methods -------------------------------
+    // ------------------------------ Concrete Methods -------------------------------
     public Skill getSkills() {return skills;}
     public String getName() {return name;}
     public int getFatigueLevel() {return fatigueLevel;}
 
     public void setName(String name){this.name = name;}
 
+    // ---------------------- Abstract Methods -----------------------------
     abstract boolean hasSkill(Skill skill);
 
     // ---------------------- Constructor ------------------------------
