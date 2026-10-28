@@ -1,0 +1,5 @@
+package enums;
+
+public enum FacilityType {
+    HABITAT,LABORATORY,STORAGE_FACILITY,POWER_STATION,COMMUNICATION_STATION
+}

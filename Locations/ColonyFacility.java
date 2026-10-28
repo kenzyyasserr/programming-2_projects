@@ -2,18 +2,36 @@ package Locations;
 import Resources.*;
 import enums.*;
 import Equipments.*;
+import Emergencies.*;
 import java.util.Arrays;
 
 public abstract class ColonyFacility implements Location{
+    private FacilityType type;
     private int capacity; //in mars colony, check capacity first before adding new agents to a facility
     private boolean isDamaged;
     private Resource[] resources;
     private Equipment[] equipment;
+    private String name;
+    protected Emergency emergency; //null if no emergency is occuring in the location
     
-    public ColonyFacility(int capacity, Resource[] resources, Equipment[] equipment){ 
+    public ColonyFacility(String name, FacilityType type,int capacity, Resource[] resources, Equipment[] equipment){ 
+        this.name = name;
+        this.type = type;
         this.capacity = capacity;
         this.resources = resources;
         this.equipment = equipment;
+    }
+    public Emergency getOngoingEmergency(){
+        return emergency;
+    }
+    public String getName(){
+        return name;
+    }
+    public void setName(String newName){
+        name = newName;
+    }
+    public FacilityType getFacilityType(){
+        return type;
     }
     public boolean getIsDamaged(){ //used for repair missions
         return isDamaged;
@@ -64,7 +82,9 @@ public abstract class ColonyFacility implements Location{
         }
     }
     public abstract boolean isOperational(EnvironmentCondition env); //will check environment to check operation of certain facilities
-    public abstract void printLocationDetails();
+    public void printLocationDetails(){
+        System.out.printf("%Facility name: %s\nType: %s\nCapacity: %d\nResources: %s\nEquipment: %s\n",name,type,capacity,Arrays.toString(resources),Arrays.toString(equipment));
+    }
 }
 /*note: isDamaged is used to indicate that facility is not operational due to an emergency
 where as isOperational(EnvironmentCondition) checks as well the environment to check whether a facility

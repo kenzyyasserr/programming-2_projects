@@ -2,9 +2,10 @@ package Locations;
 import Resources.*;
 import enums.*;
 import Equipments.*;
+import Emergencies.*;
 public class Habitat extends ColonyFacility{
-    public Habitat(int capacity, Resource[] resources, equipment[] equipment){
-        super(capacity,resources,equipment);
+    public Habitat(String name,int capacity, Resource[] resources, Equipment[] equipment){
+        super(name,FacilityType.HABITAT,capacity,resources,equipment);
     }
     @Override
     public boolean isIndoorsFacility(){
@@ -20,10 +21,20 @@ public class Habitat extends ColonyFacility{
     }
     @Override
     public boolean isOperational(EnvironmentCondition env){
-        //for habitat: if oxygen > 10, it is operational:
-        for(int i=0;i<.length;i++){
-            if()
-        }
+        return true; //habitat always operational
     }
-    public abstract void printLocationDetails();
+    @Override 
+    public boolean setEmergency(Emergency emergency){
+        if(emergency!=null){
+            if(emergency.getEmergencyType()==EmergencyType.OXYGEN_LEAK){
+                this.emergency = emergency;
+                return true;
+            }
+        }
+        return false;
+    }
+    @Override 
+    public boolean isEmergencyOccuring(){
+        if 
+    }
 }
