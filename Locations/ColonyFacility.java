@@ -45,9 +45,15 @@ public abstract class ColonyFacility implements Location{
         if(total>=amount){
             flag = true;
             break;
+            //rsource quantity is big enough to consume
         }
         if(resources[i].getType()==type){
-            total+= amount - resources[i].getQuantity();
+            if(resources[i].getQuantity()>=amount){
+                resources[i].reduceResource(amount); /*if total amount found in a resource, use the resource 
+                else look at the amounts in all the resources in the location*/
+                return true;
+            }
+            total+=resources[i].getQuantity();
         }
        }
        if(flag){
