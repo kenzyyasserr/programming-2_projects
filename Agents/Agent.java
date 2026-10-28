@@ -1,12 +1,24 @@
 package Agents;
+import enums.HealthStatus;
+
 
 abstract class Agents
 {
     // --------------------------- Attributes ----------------------------------
     private ColonyFacility currentLocation;
-    private String[] healthStatus = {"healthy", "moderate", "unhealthy"};
+    private HealthStatus healthStatus;
     private String id;
     private boolean onMission;
+
+    public Agents(ColonyFacility currentLocation, String id, boolean onMission)
+    {
+        this.currentLocation = currentLocation;
+        this.healthStatus = HealthStatus.HEALTHY; // Default health status
+        this.id = id;
+        this.onMission = onMission;
+    }
+
+
 
     // --------------------------- Abstract Methods ----------------------------------
     public abstract boolean canPerformMission(Mission mission);
