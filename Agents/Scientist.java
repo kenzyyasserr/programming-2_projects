@@ -1,6 +1,7 @@
 package Agents;
 import enums.HealthStatus;
 import enums.Skill;
+import enums.MissionType;
 
 public class Scientist extends HumanPersonnel
 {
@@ -47,10 +48,19 @@ public class Scientist extends HumanPersonnel
             switch (status) {
                 case HEALTHY:
                 case MODERATE:
-                    
+                    if(!onMission){
+                        System.out.println("Scientist is usable for mission as they are skilled, healthy and available");
+                        usable = true;
+                    }
+                    else{
+                        System.out.println("Scientist cannot perform mission as they are on another mission");
+                        usable = false;
+                    }
                     break;
+
                 default:
-                    throw new AssertionError();
+                    System.out.println("Scientist cannot perform mission as they are unhealthy");
+                    usable = false;
             }
         }
         else{
@@ -58,5 +68,12 @@ public class Scientist extends HumanPersonnel
             usable = false;
         }
         return usable;
+    }
+
+    void research()
+    {
+        fatigueLevel++;
+        healthAnalysis(fatigueLevel);
+        setOnMission(MissionType.RESEARCH);
     }
 }

@@ -1,8 +1,8 @@
 package Agents;
 import Locations.ColonyFacility;
 import Locations.Location;
-import Missions.Mission;
 import enums.HealthStatus;
+import enums.MissionType;
 import enums.Skill;
 
 
@@ -33,7 +33,7 @@ public abstract class Agent
 
     public void setCurrentLocation(ColonyFacility location) {this.currentLocation = location;}
 
-    public void setOnMission(Mission mission)
+    public void setOnMission(MissionType mission)
     {
         if(mission != null)
             this.onMission = true;
@@ -53,5 +53,14 @@ public abstract class Agent
             System.out.println("This personnel cannot perform mission as they are unusable");
             return false;
         }
+    }
+
+    public void healthAnalysis(int fatigueLevel)
+    {
+        if(0 <= fatigueLevel && fatigueLevel <= 35){changeHealth(HealthStatus.HEALTHY);}
+        else if(35 < fatigueLevel && fatigueLevel <= 70){changeHealth(HealthStatus.MODERATE);}
+        else if(70 < fatigueLevel){changeHealth(HealthStatus.UNHEALTHY);}
+        else
+            System.out.println("Fatigue level can't be a negative value");
     }
 }
