@@ -1,4 +1,6 @@
 package Agents;
+import Locations.*;
+import Missions.*;
 
 abstract class Agents
 {
