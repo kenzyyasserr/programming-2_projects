@@ -1,8 +1,11 @@
 package Agents;
 import enums.HealthStatus;
+import Missions.*;
+import Locations.ColonyFacility;
+import Locations.Location;
 
 
-abstract class Agents
+abstract class Agent
 {
     // --------------------------- Attributes ----------------------------------
     private ColonyFacility currentLocation;
@@ -10,7 +13,8 @@ abstract class Agents
     private String id;
     private boolean onMission;
 
-    public Agents(ColonyFacility currentLocation, String id, boolean onMission)
+    // -------------------------- Constructors ---------------------------------------
+    public Agent(ColonyFacility currentLocation, String id, boolean onMission)
     {
         this.currentLocation = currentLocation;
         this.healthStatus = HealthStatus.HEALTHY; // Default health status
@@ -18,14 +22,18 @@ abstract class Agents
         this.onMission = onMission;
     }
 
+    public HumanPersonnel(String name, Skill[] skills, int fatigueLevel)
+    {
+        this.name = name;
 
+    }
 
     // --------------------------- Abstract Methods ----------------------------------
     public abstract boolean canPerformMission(Mission mission);
     public abstract boolean isUsable();
 
     // ------------------------ Concrete Methods ---------------------------------------
-    public String[] getHealth() {return healthStatus;}
+    public HealthStatus getHealth() {return healthStatus;}
     public Location getCurrentLocation() {return currentLocation;}
     public String getId() {return id;}
 

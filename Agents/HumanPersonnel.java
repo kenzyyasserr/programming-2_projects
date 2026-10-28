@@ -9,7 +9,7 @@ abstract class HumanPersonnel extends Agents
     private int fatigueLevel;
 
     // ------------------------------ Methods -------------------------------
-    public Skill[] getSkills() {return skills;}
+    public Skill getSkills() {return skills;}
     public String getName() {return name;}
     public int getFatigueLevel() {return fatigueLevel;}
 
