@@ -1,5 +1,5 @@
 package Locations;
 
-public class CommunicationStation {
+public class CommunicationStation extends ColonyFacility{
     
 }

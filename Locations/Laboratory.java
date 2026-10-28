@@ -1,5 +1,5 @@
 package Locations;
 
-public class Laboratory {
+public class Laboratory extends ColonyFacility{
     
 }

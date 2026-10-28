@@ -1,5 +1,5 @@
 package Locations;
 
-public class MedicalBay {
+public class MedicalBay extends ColonyFacility{
     
 }

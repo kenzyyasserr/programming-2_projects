@@ -1,5 +1,5 @@
 package Locations;
 
-public class StorageFacility {
+public class StorageFacility extends ColonyFacility{
     
 }

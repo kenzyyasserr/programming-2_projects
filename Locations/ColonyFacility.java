@@ -5,16 +5,24 @@ import Equipments.*;
 import java.util.Arrays;
 
 public abstract class ColonyFacility implements Location{
-    private double capacity;
+    private int capacity; //in mars colony, check capacity first before adding new agents to a facility
     private boolean isDamaged;
     private Resource[] resources;
     private Equipment[] equipment;
     
+    public ColonyFacility(int capacity, Resource[] resources, Equipment[] equipment){ 
+        this.capacity = capacity;
+        this.resources = resources;
+        this.equipment = equipment;
+    }
     public boolean getIsDamaged(){ //used for repair missions
         return isDamaged;
-    } 
-    public void setIsOperational(boolean value){
-        isDamaged = !value; //is isOperational true, then facility is NOT damaged and if false, then facility is damaged
+    }
+    public int getCapacity(){
+        return capacity;
+    }
+    public void setIsDamaged(boolean value){ //used when emergencies damage locations
+        isDamaged = value; //if true, then facility is damaged and if false, then facility is not damaged
     }
     public Resource[] getResources(){
         return Arrays.copyOf(resources, resources.length);
@@ -39,39 +47,24 @@ public abstract class ColonyFacility implements Location{
     }
     
     public boolean consumeResource(ResourceType type, int amount){ //return true if resource consumed 
-       int total=0;
-       boolean flag=false;
        for(int i=0;i<resources.length;i++){
-        if(total>=amount){
-            flag = true;
-            break;
-            //rsource quantity is big enough to consume
-        }
         if(resources[i].getType()==type){
             if(resources[i].getQuantity()>=amount){
-                resources[i].reduceResource(amount); /*if total amount found in a resource, use the resource 
-                else look at the amounts in all the resources in the location*/
+                resources[i].reduceResource(amount); /*if total amount found in a resource, use the resource*/
                 return true;
             }
-            total+=resources[i].getQuantity();
+            else return false;
         }
        }
-       if(flag){
-            int amountTaken=0;
-            for(int i=0;i<resources.length;i++){
-                if(amountTaken==amount){
-                    return true;
-                }
-                if(resources[i].getType()==type){
-                    amountTaken += resources[i].getQuantity();
-
-                }
-            }
-       }
+       return false;
     }
-     printResourcesInFacility()
-    public boolean isOperational(EnvironmentCondition env) 
-
+    public void printResourcesInFacility(){
+        for(int i=0; i<resources.length; i++){
+            System.out.printf("%s : %d units\n",resources[i].getType(),resources[i].getQuantity());
+        }
+    }
+    public abstract boolean isOperational(EnvironmentCondition env); //will check environment to check operation of certain facilities
+    public abstract void printLocationDetails();
 }
 /*note: isDamaged is used to indicate that facility is not operational due to an emergency
 where as isOperational(EnvironmentCondition) checks as well the environment to check whether a facility

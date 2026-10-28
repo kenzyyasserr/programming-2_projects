@@ -1,5 +1,5 @@
 package Locations;
 
-public class PowerStation {
+public class PowerStation extends ColonyFacility{
     
 }
