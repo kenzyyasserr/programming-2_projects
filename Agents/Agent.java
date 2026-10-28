@@ -1,11 +1,6 @@
 package Agents;
-<<<<<<< HEAD
 import enums.HealthStatus;
 
-=======
-import Locations.*;
-import Missions.*;
->>>>>>> 69564a2ea190cfc49b9c28451177dd26cbc90498
 
 abstract class Agents
 {
