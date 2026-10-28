@@ -14,7 +14,7 @@ abstract class Agents
 
     // ------------------------ Concrete Methods ---------------------------------------
     public String[] getHealth() {return healthStatus;}
-    public Location getCurrentLocation() {return location;}
+    public Location getCurrentLocation() {return currentLocation;}
     public String getId() {return id;}
 
     public void setCurrentLocation(Location location) {currentLocation = location;}
