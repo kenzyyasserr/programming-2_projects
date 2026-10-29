@@ -5,7 +5,7 @@ public abstract class HumanPersonnel extends Agent
 {
     // --------------------------- Attributes -------------------------
     protected String name;
-    protected Skill[] skills;
+    protected Skill skills;
     protected int fatigueLevel;
 
     // ------------------------------ Concrete Methods -------------------------------

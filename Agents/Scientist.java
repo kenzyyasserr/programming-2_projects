@@ -1,7 +1,7 @@
 package Agents;
 import enums.HealthStatus;
-import enums.Skill;
 import enums.MissionType;
+import enums.Skill;
 
 public class Scientist extends HumanPersonnel
 {
