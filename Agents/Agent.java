@@ -15,12 +15,11 @@ public abstract class Agent
     protected boolean onMission;
 
     // -------------------------- Constructor ---------------------------------------
-    protected Agent(ColonyFacility currentLocation, String id, boolean onMission)
+    protected Agent(ColonyFacility currentLocation, String id)
     {
         this.currentLocation = currentLocation;
         this.healthStatus = HealthStatus.HEALTHY; // Default health status
         this.id = id;
-        this.onMission = onMission;
     }
 
     // --------------------------- Abstract Methods ----------------------------------
@@ -62,5 +61,8 @@ public abstract class Agent
         else if(70 < fatigueLevel){changeHealth(HealthStatus.UNHEALTHY);}
         else
             System.out.println("Fatigue level can't be a negative value");
+    }
+    public boolean getIsOnMission(){
+        return onMission;
     }
 }

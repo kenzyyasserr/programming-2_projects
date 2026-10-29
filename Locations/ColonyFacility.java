@@ -55,7 +55,10 @@ public abstract class ColonyFacility implements Location{
     public void setEquipment(Equipment[] newEquipments){
         this.equipment = Arrays.copyOf(newEquipments,newEquipments.length);
     }
-    public int getResourceQuantity(ResourceType type){
+    @Override
+    public int getResourceQuantity(ResourceType type,EnvironmentCondition env){
+        //if facility unavailable (not operational) its resources don't count
+        if(!isOperational(env)) return 0;
         for(int i=0;i<resources.length;i++){
             if(resources[i].getType() == type){
                 return resources[i].getQuantity();

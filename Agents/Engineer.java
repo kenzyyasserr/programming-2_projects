@@ -7,9 +7,10 @@ import Locations.ColonyFacility;
 
 public class Engineer extends HumanPersonnel
 {
+    private static final Skill[] ENG_SKILLS = {Skill.ELECTRONICS, Skill.WELDING,Skill.MECHANICS};
     // ------------------------- Constructor -------------------------
-    public Engineer(){
-        super(name, skills, fatigueLevel);
+    public Engineer(String name, String id,ColonyFacility currentLocation,int fatigueLevel){
+        super(name,id,currentLocation, fatigueLevel, ENG_SKILLS);
     }
 
     // ---------------- Methods Implementation -----------------

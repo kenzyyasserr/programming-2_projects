@@ -1,15 +1,16 @@
 package Agents;
+import Locations.ColonyFacility;
 import enums.Skill;
 
 public abstract class HumanPersonnel extends Agent
 {
     // --------------------------- Attributes -------------------------
     protected String name;
-    protected Skill skills;
+    protected Skill[] skills;
     protected int fatigueLevel;
 
     // ------------------------------ Concrete Methods -------------------------------
-    public Skill getSkills() {return skills;}
+    public Skill[] getSkills() {return skills;}
     public String getName() {return name;}
     public int getFatigueLevel() {return fatigueLevel;}
 
@@ -19,9 +20,9 @@ public abstract class HumanPersonnel extends Agent
     public abstract boolean hasSkill(Skill skill);
 
     // ---------------------- Constructor ------------------------------
-    public HumanPersonnel(String name, Skill[] skills, int fatigueLevel)
+    public HumanPersonnel(String name, String id,ColonyFacility currentLocation,int fatigueLevel,Skill[] skills)
     {
-        super(id, currentLocation, onMission);
+        super(currentLocation,id);
         this.name = name;
         this.skills = skills;
         this.fatigueLevel = fatigueLevel;

@@ -1,13 +1,15 @@
 package Agents;
+import Locations.ColonyFacility;
 import enums.HealthStatus;
 import enums.MissionType;
 import enums.Skill;
 
 public class Scientist extends HumanPersonnel
 {
+    private static final Skill[] SCIENTIST_SKILLS = {Skill.BIOLOGY, Skill.CHEMISTRY,Skill.GEOLOGY};
     // -------------------------- Constructor ----------------------
-    public Scientist(){
-        super(name, skills, fatigueLevel);
+    public Scientist(String name, String id,ColonyFacility currentLocation,int fatigueLevel){
+        super(name,id,currentLocation, fatigueLevel,SCIENTIST_SKILLS);
     }
 
     // ------------------ Methods Implementation ------------------------

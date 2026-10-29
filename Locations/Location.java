@@ -1,6 +1,8 @@
 package Locations;
 
 import Emergencies.Emergency;
+import enums.EnvironmentCondition;
+import enums.ResourceType;
 
 public interface Location {
     boolean isIndoorsFacility(); // repair robots
@@ -10,4 +12,5 @@ public interface Location {
     boolean isEmergencyOccurring(); //returns true if an emergency is occuring in a specific location
     void clearEmergency(); //makes emergency in a place null, used when emergency is over
     Emergency getOngoingEmergency();
+    int getResourceQuantity(ResourceType type,EnvironmentCondition env);
 }

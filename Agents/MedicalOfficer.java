@@ -7,9 +7,10 @@ import Locations.ColonyFacility;
 
 public class MedicalOfficer extends HumanPersonnel
 {
+    private static final Skill[] MEDICAL_OFFICER_SKILLS = {Skill.SURGERY, Skill.FIRST_AID};
     // ------------------------- Constructor -------------------------
-    public MedicalOfficer(){
-        super(name, skills, fatigueLevel);
+    public MedicalOfficer(String name, String id,ColonyFacility currentLocation,int fatigueLevel){
+        super(name,id,currentLocation, fatigueLevel, MEDICAL_OFFICER_SKILLS);
     }
 
     // ---------------- Methods Implementation -----------------

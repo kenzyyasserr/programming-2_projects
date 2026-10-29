@@ -1,6 +1,6 @@
 package Agents;
 
-import Equipment.Equipment;
+import Equipments.*;
 import Locations.Location;
 
 public class ExplorationRover extends RoboticUnits {

@@ -2,10 +2,15 @@ package Locations;
 
 import Emergencies.Emergency;
 import enums.EmergencyType;
+import enums.EnvironmentCondition;
+import enums.ResourceType;
 
 public class MarsSurface implements Location{
     private Emergency emergency;
 
+    public MarsSurface(){
+
+    }
     public boolean isIndoorsFacility(){
         return false;
     }
@@ -38,5 +43,9 @@ public class MarsSurface implements Location{
     @Override
     public Emergency getOngoingEmergency(){
         return emergency;
+    }
+    @Override 
+    public int getResourceQuantity(ResourceType type,EnvironmentCondition env){
+        return 0; //no resources on martianSurface
     }
 }
