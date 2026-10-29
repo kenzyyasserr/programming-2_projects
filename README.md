@@ -38,9 +38,8 @@ MarsColony                                  the coordinator
  ├── has 0..1 active Mission                submitMission(), advanceTime()
  ├── has an Environment condition           setEnvironment()
  └── has an Emergency log                   triggerEmergency(), findEmergencyResponders()
-```
-Facility
 
+Facility
  └── owns its parts (composition)           e.g. LifeSupportSystem inside Habitat
- 
  └── holds Resources                        resource quantities live here
+```
