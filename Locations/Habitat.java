@@ -4,6 +4,7 @@ import enums.*;
 import Equipments.*;
 import Emergencies.*;
 public class Habitat extends ColonyFacility{
+    
     public Habitat(String name,int capacity, Resource[] resources, Equipment[] equipment){
         super(name,FacilityType.HABITAT,capacity,resources,equipment);
     }
@@ -21,11 +22,14 @@ public class Habitat extends ColonyFacility{
     }
     @Override
     public boolean isOperational(EnvironmentCondition env){
-        return true; //habitat always operational
+        if(!isEmergencyOccurring() && !getIsDamaged()){
+            return true;
+        }
+        else return false;
     }
     @Override 
     public boolean setEmergency(Emergency emergency){
-        if(emergency!=null){
+        if(emergency!=null && getOngoingEmergency()==null){
             if(emergency.getEmergencyType()==EmergencyType.OXYGEN_LEAK){
                 this.emergency = emergency;
                 return true;
@@ -34,7 +38,10 @@ public class Habitat extends ColonyFacility{
         return false;
     }
     @Override 
-    public boolean isEmergencyOccuring(){
-        if 
+    public boolean isEmergencyOccurring(){
+        if (getOngoingEmergency()!=null){
+            return true;
+        }
+        return false;
     }
 }

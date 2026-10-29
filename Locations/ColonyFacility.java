@@ -21,6 +21,7 @@ public abstract class ColonyFacility implements Location{
         this.resources = resources;
         this.equipment = equipment;
     }
+    @Override
     public Emergency getOngoingEmergency(){
         return emergency;
     }
@@ -46,22 +47,21 @@ public abstract class ColonyFacility implements Location{
         return Arrays.copyOf(resources, resources.length);
     }
     public void setResources(Resource[] newResources){
-        this.resources = newResources;
+        this.resources = Arrays.copyOf(newResources, newResources.length);
     }
     public Equipment[] getEquipment(){
         return Arrays.copyOf(equipment,equipment.length);
     }
     public void setEquipment(Equipment[] newEquipments){
-        this.equipment = newEquipments;
+        this.equipment = Arrays.copyOf(newEquipments,newEquipments.length);
     }
     public int getResourceQuantity(ResourceType type){
-        int total=0;
         for(int i=0;i<resources.length;i++){
             if(resources[i].getType() == type){
-                total+= resources[i].getQuantity();
+                return resources[i].getQuantity();
             }
         }
-        return total;
+        return 0;
     }
     
     public boolean consumeResource(ResourceType type, int amount){ //return true if resource consumed 
@@ -71,7 +71,6 @@ public abstract class ColonyFacility implements Location{
                 resources[i].reduceResource(amount); /*if total amount found in a resource, use the resource*/
                 return true;
             }
-            else return false;
         }
        }
        return false;
@@ -81,9 +80,13 @@ public abstract class ColonyFacility implements Location{
             System.out.printf("%s : %d units\n",resources[i].getType(),resources[i].getQuantity());
         }
     }
+    @Override
+    public void clearEmergency(){
+        this.emergency = null;
+    }
     public abstract boolean isOperational(EnvironmentCondition env); //will check environment to check operation of certain facilities
     public void printLocationDetails(){
-        System.out.printf("%Facility name: %s\nType: %s\nCapacity: %d\nResources: %s\nEquipment: %s\n",name,type,capacity,Arrays.toString(resources),Arrays.toString(equipment));
+        System.out.printf("Facility name: %s\nType: %s\nCapacity: %d\nResources: %s\nEquipment: %s\n",name,type,capacity,Arrays.toString(resources),Arrays.toString(equipment));
     }
 }
 /*note: isDamaged is used to indicate that facility is not operational due to an emergency

@@ -1,20 +1,18 @@
 package Locations;
-
-import Equipments.Equipment;
-import Resources.Resource;
-import enums.EnvironmentCondition;
-import enums.FacilityType;
-
+import Resources.*;
+import enums.*;
+import Equipments.*;
+import Emergencies.*;
 public class CommunicationStation extends ColonyFacility{
     public CommunicationStation(String name,int capacity, Resource[] resources, Equipment[] equipment){
-        super(name,FacilityType.HABITAT,capacity,resources,equipment);
+        super(name,FacilityType.COMMUNICATION_STATION,capacity,resources,equipment);
     }
     @Override
     public boolean isIndoorsFacility(){
         return true;
     }
     @Override
-    public boolean isOnMarsSurface(){ //aka, outdoors
+    public boolean isOnMarsSurface(){
         return false; 
     }  
     @Override
@@ -22,7 +20,18 @@ public class CommunicationStation extends ColonyFacility{
         return false;
     }
     @Override
-    public boolean isOperational(EnvironmentCondition env){
-        //is not operational when dust storm is happening
+    public boolean isOperational(EnvironmentCondition environmentCondition){
+        if(!isEmergencyOccurring() && !getIsDamaged() && environmentCondition!=EnvironmentCondition.COMMUNICATION_DISRUPTION){
+            return true;
+        }
+        else return false;
+    }
+    @Override 
+    public boolean setEmergency(Emergency emergency){
+        return false; //no emergencies occur in communication stations
+    }
+    @Override 
+    public boolean isEmergencyOccurring(){
+        return false; //no emergencies occur in communication stations
     }
 }
