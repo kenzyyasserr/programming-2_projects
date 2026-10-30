@@ -1,9 +1,9 @@
 package Agents;
+import Equipments.Equipment;
+import Locations.Location;
 import enums.EquipmentType;
 import enums.HealthStatus;
 import enums.Skill;
-import Equipments.Equipment;
-import Locations.Location;
 
 
 public abstract class RoboticUnits extends Agent {
@@ -61,8 +61,8 @@ public abstract class RoboticUnits extends Agent {
     }
     public boolean hasEquipment(EquipmentType equipmentType){
         if(equipment!=null){
-            for(int i=0;i<equipment.length;i++){
-                if(equipment[i].getType()==equipmentType && equipment[i].isUsable()){
+            for (Equipment equipment1 : equipment) {
+                if (equipment1.getType() == equipmentType && equipment1.isUsable()) {
                     return true;
                 }
             }
@@ -71,12 +71,7 @@ public abstract class RoboticUnits extends Agent {
     }
     @Override
     public boolean isUsable(){
-       if(this.batteryLevel > 20 && this.healthStatus == HealthStatus.HEALTHY && !this.onMission){
-           return true;
-       }
-       else{
-           return false;
-       } 
+        return this.batteryLevel > 20 && this.healthStatus == HealthStatus.HEALTHY && !this.onMission; 
     }
 
      public abstract boolean canOperateIn(Location loc);
