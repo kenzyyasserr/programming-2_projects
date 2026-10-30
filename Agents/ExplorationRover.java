@@ -4,7 +4,7 @@ import Equipments.*;
 import Locations.Location;
 
 public class ExplorationRover extends RoboticUnits {
-    public ExplorationRover(Location currentLocation, String id, double BatteryLevel,boolean onMission, Equipment[] equipment) {
+    public ExplorationRover(Location currentLocation, String id, double BatteryLevel, Equipment[] equipment) {
         super(currentLocation, id, BatteryLevel, equipment);
     }
 
