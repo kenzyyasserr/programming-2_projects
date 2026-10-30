@@ -18,13 +18,12 @@ public abstract class HumanPersonnel extends Agent
 
     public void setName(String name){this.name = name;}
 
-    @Override
     public boolean isUsable(){
         HealthStatus status = getHealth();
         return (status == HealthStatus.HEALTHY ||status == HealthStatus.MODERATE)&& !onMission;
     }
     @Override
-    public boolean canPerformMission(Skill requiredSkill,EquipmentType equipmentType) {
+    public boolean canPerformMission(Skill requiredSkill) {
     if (!isUsable()) {
         System.out.println("Personnel is unusable.");
         return false;

@@ -45,14 +45,14 @@ public abstract class RoboticUnits extends Agent {
         }
     }
     @Override
-    public boolean canPerformMission(Skill skill,EquipmentType equipmentType)  // checks isUsable
+    public boolean canPerformMission(EquipmentType equipmentType)  // checks isUsable
     {
         if (!isUsable()) {
-        System.out.println("Personnel is unusable.");
+        System.out.println("Robotic unit is unusable.");
         return false;
     }
         if (!hasEquipment(equipmentType)) {
-            System.out.println("Personnel lacks a required skill.");
+            System.out.println("Robotic unit does not have the required equipment.");
             return false;
         }
 
