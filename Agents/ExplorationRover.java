@@ -10,7 +10,6 @@ public class ExplorationRover extends RoboticUnits {
 
     public void explore(){
         this.changeBatteryLevel(-10); // Decrease battery level by 10 units
-        this.onMission = true; // Set the rover on a mission
     }
 
     @Override

@@ -38,10 +38,9 @@ public class Scientist extends HumanPersonnel
         return skilled;
     }
 
-    void research()
+    public void research()
     {
         fatigueLevel++;
         healthAnalysis(fatigueLevel);
-        setOnMission(MissionType.RESEARCH);
     }
 }

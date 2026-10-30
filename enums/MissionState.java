@@ -1,5 +1,5 @@
 package enums;
 
 public enum MissionState {
-     ASSIGNED, IN_PROGRESS, COMPLETED, FAILED
+     PENDING,ASSIGNED, ACTIVE, COMPLETED, FAILED
 }

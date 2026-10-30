@@ -5,7 +5,7 @@ import Equipments.*;
 import Emergencies.*;
 public class CommunicationStation extends ColonyFacility{
     public CommunicationStation(String name,int capacity, Resource[] resources, Equipment[] equipment){
-        super(name,FacilityType.COMMUNICATION_STATION,capacity,resources,equipment);
+        super(name,LocationType.COMMUNICATION_STATION,capacity,resources,equipment);
     }
     @Override
     public boolean isIndoorsFacility(){

@@ -30,11 +30,28 @@ public class MarsColony{
         }
         return total;
     }
+    public Mission getActiveMission(){
+        return activeMission;
+    }
+    public boolean setActiveMission(Mission mission){
+        if(activeMission==null){
+            activeMission = mission;
+            return true;
+        }
+        if(mission == null){
+            activeMission = mission;
+            return true;
+        }
+        return false;
+    }
     public EnvironmentCondition getEnvironmentCondition(){
         return environment;
     }
     public ColonyFacility[] getFacilities(){
         return facilities.toArray(new ColonyFacility[0]);
+    }
+    public Location[] getLocations(){
+        return locations.toArray(new Location[0]);
     }
     public Agent[] getColonyAgents(){
         return agents.toArray(new Agent[0]);

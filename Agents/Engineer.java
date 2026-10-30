@@ -43,17 +43,11 @@ public class Engineer extends HumanPersonnel
     {
         fatigueLevel++;
         healthAnalysis(fatigueLevel);
-        setOnMission(MissionType.REPAIR);
-
-
     }
 
     void repairFacility(ColonyFacility facility)
     {
         fatigueLevel++;
         healthAnalysis(fatigueLevel);
-        setOnMission(MissionType.REPAIR);
-
-
     }
 }

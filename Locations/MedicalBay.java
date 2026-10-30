@@ -6,7 +6,7 @@ import Emergencies.*;
 public class MedicalBay extends ColonyFacility{
     
     public MedicalBay(String name,int capacity, Resource[] resources, Equipment[] equipment){
-        super(name,FacilityType.MEDICAL_BAY,capacity,resources,equipment);
+        super(name,LocationType.MEDICAL_BAY,capacity,resources,equipment);
     }
     @Override
     public boolean isIndoorsFacility(){

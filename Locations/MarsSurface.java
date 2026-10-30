@@ -3,13 +3,14 @@ package Locations;
 import Emergencies.Emergency;
 import enums.EmergencyType;
 import enums.EnvironmentCondition;
+import enums.LocationType;
 import enums.ResourceType;
 
 public class MarsSurface implements Location{
     private Emergency emergency;
-
+    private LocationType type;
     public MarsSurface(){
-
+        this.type = LocationType.MARS_SURFACE;
     }
     public boolean isIndoorsFacility(){
         return false;
@@ -19,6 +20,10 @@ public class MarsSurface implements Location{
     }
     public boolean isGroundVehicleAccessible(){
         return true;
+    }
+    @Override 
+    public LocationType getLocationType(){
+        return type;
     }
     public boolean setEmergency(Emergency emergency){
         if(emergency!=null && getOngoingEmergency()==null){

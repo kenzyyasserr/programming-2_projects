@@ -3,6 +3,7 @@ package Missions;
 import java.util.ArrayList;
 
 import Agents.Agent;
+import Agents.ExplorationRover;
 import enums.*;
 import Locations.*;
 import MarsColonies.MarsColony;
@@ -10,18 +11,29 @@ import MarsColonies.MarsColony;
 
 public class ExplorationMission extends Mission {
 
-    public ExplorationMission(Location targetLocation,int duration,
+    public ExplorationMission(Location targetLocation,
          ResourceType[] neededTypes, int[] neededAmounts, 
-        Skill[] requiredSkills, EquipmentType[] requiredEquipment,MarsColony colony){
-            super(targetLocation,duration,neededTypes,neededAmounts,requiredSkills,requiredEquipment,colony);
+        Skill[] requiredSkills, EquipmentType[] requiredRobotEquipment,
+        EquipmentType[] requiredFacilityEquipment, MarsColony colony){
+            super(targetLocation,neededTypes,neededAmounts,requiredSkills,requiredRobotEquipment,requiredFacilityEquipment,colony);
         }
-    public abstract boolean executeMission();
-    public abstract boolean assignAgents();
-    public boolean fail(){
+    @Override
+    protected boolean executeMission() {
+        Agent[] agents = getAssignedAgents();
+        if (agents == null) {
+            return false;
+        }
+        boolean roverFound = false;
+        for (Agent agent : agents) {
+            if (agent instanceof ExplorationRover) {
+                ExplorationRover rover = (ExplorationRover) agent;
+                rover.explore();
+                roverFound = true;
+            }
+        }
+        return roverFound;
+        }
 
-    }
-
-    public abstract boolean validateMission();
     @Override
     public boolean requiresSurfaceAccess(){
         return true;
@@ -31,14 +43,7 @@ public class ExplorationMission extends Mission {
         return false;
     }
     @Override 
-    public boolean checkEquipment(EquipmentType equipment){
-        //check that rover has 
-
-    }
-    public abstract boolean Start();
-    public abstract boolean canAssign();
-    public boolean usesRover(){
-        return true;
-    }
-    public abstract void onComplete(); //what changes after mission completes (aka if something gets fixed, change isOperational)
+    public void onComplete(){
+        //nothing gets fixed so nothing happens here
+    } 
 }

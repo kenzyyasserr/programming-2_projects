@@ -2,7 +2,7 @@ package Agents;
 import Locations.ColonyFacility;
 import Locations.Location;
 import enums.*;
-
+import Missions.*;
 
 public abstract class Agent
 {
@@ -29,9 +29,9 @@ public abstract class Agent
     public Location getCurrentLocation() {return currentLocation;}
     public String getId() {return id;}
 
-    public void setCurrentLocation(ColonyFacility location) {this.currentLocation = location;}
+    public void setCurrentLocation(Location location) {this.currentLocation = location;}
 
-    public void setOnMission(MissionType mission)
+    public void setOnMission(Mission mission)
     {
         if(mission != null)
             this.onMission = true;

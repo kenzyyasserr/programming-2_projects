@@ -6,7 +6,7 @@ import Emergencies.*;
 public class PowerStation extends ColonyFacility{
     
     public PowerStation(String name,int capacity, Resource[] resources, Equipment[] equipment){
-        super(name,FacilityType.POWER_STATION,capacity,resources,equipment);
+        super(name,LocationType.POWER_STATION,capacity,resources,equipment);
     }
     @Override
     public boolean isIndoorsFacility(){
