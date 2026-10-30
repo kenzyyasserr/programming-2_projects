@@ -111,7 +111,7 @@ public abstract class Mission implements TimeOperation
     for (Skill skill : requiredSkills) {
         boolean found = false;
         for (Agent agent : colony.getColonyAgents()) {
-            if (agent != null && agent.canPerformMission(skill, null)) {
+            if (agent != null && agent.canPerformMission(skill)) {
                 if (!temp.contains(agent)) {
                     temp.add(agent);
                 }
@@ -129,7 +129,7 @@ public abstract class Mission implements TimeOperation
         boolean found = false;
         for (Agent agent : colony.getColonyAgents()) {
 
-            if (agent != null && agent.canPerformMission(null, equipment)) {
+            if (agent != null && agent.canPerformMission(equipment)) {
                 if (!temp.contains(agent)) {
                     temp.add(agent);
                 }
@@ -185,7 +185,7 @@ CHECKING REQUIRMENTS
         for (Skill skill : requiredSkills) {
             boolean covered = false;
             for (Agent agent : colony.getColonyAgents()) {
-                if (agent != null && agent.canPerformMission(skill, null)) {
+                if (agent != null && agent.canPerformMission(skill)) {
                     covered = true;
                     break;
                 }
@@ -199,7 +199,7 @@ CHECKING REQUIRMENTS
         for (EquipmentType equipment : requiredRobotEquipment) {
             boolean covered = false;
             for (Agent agent : colony.getColonyAgents()) {
-                if (agent != null && agent.canPerformMission(null, equipment)) {
+                if (agent != null && agent.canPerformMission(equipment)) {
                     covered = true;
                     break;
                 }
@@ -340,7 +340,7 @@ Check properties of mission (aka require surface access or no and communication 
 /*--------------------------------------------------------------------------------------------
 TIME HANDLING
  ---------------------------------------------------------------------------------------------*/
- 
+
     public void timePass(){
         if (isFinished()) {
             return;
