@@ -1,7 +1,4 @@
 package Missions;
-
-import java.util.ArrayList;
-
 import Agents.*;
 import enums.*;
 import Locations.*;
@@ -9,12 +6,15 @@ import MarsColonies.MarsColony;
 import Equipments.*;
 
 public class RepairMission extends Mission {
+    private static final ResourceType[] REPAIR_RESOURCES = {ResourceType.SPARE_PARTS};
+    private static final int[] NEEDED_AMOUNTS = {5};
+    private static final Skill[] REPAIR_MISSION_SKILLS = {Skill.ELECTRONICS,Skill.WELDING,Skill.MECHANICS};
+    private static final EquipmentType[] REQUIRED_ROBOT_EQUIPMENT = {EquipmentType.TOOLKIT, EquipmentType.WELDING_TORCH};
+    private static final EquipmentType[] REQUIRED_FACILITY_EQUIPMENT = {};
+
     private CanBeFixed itemToBeFixed;
-    public RepairMission(Location targetLocation,
-        ResourceType[] neededTypes, int[] neededAmounts, 
-        Skill[] requiredSkills, EquipmentType[] requiredRobotEquipment,
-        EquipmentType[] requiredFacilityEquipment, MarsColony colony,CanBeFixed itemToBeFixed){
-            super(targetLocation,neededTypes,neededAmounts,requiredSkills,requiredRobotEquipment,requiredFacilityEquipment,colony);
+    public RepairMission(Location targetLocation,MarsColony colony,CanBeFixed itemToBeFixed){
+            super(targetLocation,REPAIR_RESOURCES,NEEDED_AMOUNTS,REPAIR_MISSION_SKILLS,REQUIRED_ROBOT_EQUIPMENT,REQUIRED_FACILITY_EQUIPMENT,colony);
             this.itemToBeFixed = itemToBeFixed;
         }
 
@@ -37,14 +37,10 @@ public class RepairMission extends Mission {
 
     @Override
     public boolean requiresSurfaceAccess(){
-        return true;
+        return false;
     }
     @Override 
     public boolean requiresCommunication(){
-        return true;
+        return false;
     }
-    @Override 
-    public void onComplete(){
-        //nothing gets fixed so nothing happens here
-    } 
 }

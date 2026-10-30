@@ -314,7 +314,6 @@ MISSION STEPS:
 
     private void finishMission() {
         if (executionSuccessful && state!=MissionState.FAILED) {
-            onComplete();
             setMissionState(MissionState.COMPLETED);
         } else {
             setMissionState(MissionState.FAILED);
@@ -327,7 +326,6 @@ MISSION STEPS:
         colony.setActiveMission(null);
     }
     protected abstract boolean executeMission(); //the actual mission execution depending on the mission type
-    protected abstract void onComplete(); //what changes after mission completes (aka if something gets fixed, change isOperational and bring back agents to original location if mission successful)
     public boolean isFinished(){
         return (state==MissionState.COMPLETED || state==MissionState.FAILED);
     }

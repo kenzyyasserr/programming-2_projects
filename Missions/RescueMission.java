@@ -1,20 +1,18 @@
 package Missions;
-
-import java.util.ArrayList;
-
 import Agents.*;
 import enums.*;
 import Locations.*;
 import MarsColonies.MarsColony;
 
-
 public class RescueMission extends Mission {
+    private static final ResourceType[] RESCUE_RESOURCES = {ResourceType.OXYGEN,ResourceType.MEDICAL_SUPPLIES,ResourceType.WATER};
+    private static final int[] NEEDED_AMOUNTS = {100,10,50};
+    private static final Skill[] RESCUE_MISSION_SKILLS = {Skill.FIRST_AID,Skill.FIREFIGHTING};
+    private static final EquipmentType[] REQUIRED_ROBOT_EQUIPMENT = {};
+    private static final EquipmentType[] REQUIRED_FACILITY_EQUIPMENT = {};
 
-    public RescueMission(Location targetLocation,
-         ResourceType[] neededTypes, int[] neededAmounts, 
-        Skill[] requiredSkills, EquipmentType[] requiredRobotEquipment,
-        EquipmentType[] requiredFacilityEquipment, MarsColony colony){
-            super(targetLocation,neededTypes,neededAmounts,requiredSkills,requiredRobotEquipment,requiredFacilityEquipment,colony);
+    public RescueMission(Location targetLocation, MarsColony colony){
+            super(targetLocation,RESCUE_RESOURCES,NEEDED_AMOUNTS,RESCUE_MISSION_SKILLS,REQUIRED_ROBOT_EQUIPMENT,REQUIRED_FACILITY_EQUIPMENT,colony);
         }
     @Override
     protected boolean executeMission() {
@@ -46,8 +44,4 @@ public class RescueMission extends Mission {
     public boolean requiresCommunication(){
         return true;
     }
-    @Override 
-    public void onComplete(){
-        //nothing gets fixed so nothing happens here
-    } 
 }
