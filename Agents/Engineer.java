@@ -1,7 +1,5 @@
 package Agents;
-import enums.HealthStatus;
-import enums.MissionType;
-import enums.Skill;
+import enums.*;
 import Equipments.Equipment;
 import Locations.ColonyFacility;
 

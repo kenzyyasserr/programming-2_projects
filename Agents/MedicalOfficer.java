@@ -1,8 +1,5 @@
 package Agents;
-import enums.HealthStatus;
-import enums.MissionType;
-import enums.Skill;
-import Equipments.Equipment;
+import enums.*;
 import Locations.ColonyFacility;
 
 public class MedicalOfficer extends HumanPersonnel
