@@ -5,7 +5,7 @@ import Equipments.*;
 import Emergencies.*;
 import java.util.Arrays;
 
-public abstract class ColonyFacility implements Location{
+public abstract class ColonyFacility implements Location,CanBeFixed{
     private LocationType type;
     private int capacity; //in mars colony, check capacity first before adding new agents to a facility
     private boolean isDamaged;
@@ -24,6 +24,11 @@ public abstract class ColonyFacility implements Location{
     @Override
     public Emergency getOngoingEmergency(){
         return emergency;
+    }
+    public void repair(){
+        if(isDamaged){
+            isDamaged = false;
+        }
     }
     public String getName(){
         return name;

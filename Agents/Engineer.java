@@ -1,9 +1,10 @@
 package Agents;
+import Equipments.CanBeFixed;
 import Equipments.Equipment;
 import Locations.ColonyFacility;
 import enums.*;
 
-public class Engineer extends HumanPersonnel
+public class Engineer extends HumanPersonnel implements RepairAbility
 {
     private static final Skill[] ENG_SKILLS = {Skill.ELECTRONICS, Skill.WELDING,Skill.MECHANICS};
     // ------------------------- Constructor -------------------------
@@ -39,15 +40,11 @@ public class Engineer extends HumanPersonnel
         return skilled;
     }
 
-    void repairEquipment(Equipment equipment)
-    {
-        fatigueLevel++;
-        healthAnalysis(fatigueLevel);
-    }
-
-    void repairFacility(ColonyFacility facility)
-    {
-        fatigueLevel++;
-        healthAnalysis(fatigueLevel);
+    public void repair(CanBeFixed itemToBeFixed){
+        if(itemToBeFixed!=null){
+            itemToBeFixed.repair();
+            fatigueLevel++;
+            healthAnalysis(fatigueLevel);
+        }
     }
 }

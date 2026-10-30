@@ -22,24 +22,29 @@ public class RescueMission extends Mission {
         if (agents == null) {
             return false;
         }
-        boolean scientistFound = false;
+        boolean found = false;
         for (Agent agent : agents) {
-            if (agent instanceof Scientist) {
-                Scientist scientist = (Scientist) agent;
-                scientist.research();
-                scientistFound= true;
+            if (agent instanceof MedicalOfficer) {
+                MedicalOfficer officer = (MedicalOfficer) agent;
+                officer.rescue();
+                found=true;
+            }
+            else if(agent instanceof FireFighter){
+                FireFighter fighter = (FireFighter) agent;
+                fighter.rescue();
+                found=true;
             }
         }
-        return scientistFound;
-        }
+        return found;
+    }
 
     @Override
     public boolean requiresSurfaceAccess(){
-        return false;
+        return true;
     }
     @Override 
     public boolean requiresCommunication(){
-        return false;
+        return true;
     }
     @Override 
     public void onComplete(){

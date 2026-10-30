@@ -1,20 +1,22 @@
 package Agents;
 
 import Emergencies.*;
-import Equipments.Equipment;
+import Equipments.*;
+import Locations.ColonyFacility;
 import Locations.Location;
 import enums.EmergencyStatus;
 import enums.EmergencyType;
 
-public class RepairRobot extends RoboticUnits implements EmergencyResponder {
+public class RepairRobot extends RoboticUnits implements EmergencyResponder,RepairAbility {
 
     public RepairRobot(Location currentLocation, String id, double BatteryLevel, Equipment[] equipment) {
         super(currentLocation, id, BatteryLevel, equipment);
     }
-
-    public void repair(Equipment equipment) {
-        equipment.repair();
-        this.changeBatteryLevel(-15); // Decrease battery level by 15 units
+    public void repair(CanBeFixed itemToBeFixed){
+        if(itemToBeFixed!=null){
+            itemToBeFixed.repair();
+            this.changeBatteryLevel(-15); // Decrease battery level by 15 units
+    }
     }
 
     @Override

@@ -10,7 +10,6 @@ import MarsColonies.MarsColony;
 
 
 public class ExplorationMission extends Mission {
-
     public ExplorationMission(Location targetLocation,
          ResourceType[] neededTypes, int[] neededAmounts, 
         Skill[] requiredSkills, EquipmentType[] requiredRobotEquipment,

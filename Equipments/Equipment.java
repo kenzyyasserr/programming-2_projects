@@ -1,9 +1,9 @@
 package Equipments;
 import enums.EquipmentType;
 
-public class Equipment{
+public class Equipment implements CanBeFixed{
     private EquipmentType type;
-    private Boolean isOperational;
+    private boolean isOperational = true;
     public Equipment(EquipmentType type){
         this.type = type;
     }
