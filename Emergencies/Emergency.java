@@ -11,4 +11,8 @@ public class Emergency{
     public EmergencyStatus getEmergencyStatus(){
         return status;
     }
+
+    public void setEmergencyStatus(EmergencyStatus status){
+        this.status=status;
+    }
 }

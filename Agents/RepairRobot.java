@@ -1,15 +1,15 @@
 package Agents;
 
-import Equipment.Equipment;
-import Locations.Location;
-import enums.EmergencyType;
-import enums.EmergencyStatus;
 import Emergencies.*;
+import Equipments.Equipment;
+import Locations.Location;
+import enums.EmergencyStatus;
+import enums.EmergencyType;
 
 public class RepairRobot extends RoboticUnits implements EmergencyResponder {
 
-    public RepairRobot(Location currentLocation, String id, double BatteryLevel, boolean onMission, Equipment[] equipment) {
-        super(currentLocation, id, BatteryLevel, onMission, equipment);
+    public RepairRobot(Location currentLocation, String id, double BatteryLevel, Equipment[] equipment) {
+        super(currentLocation, id, BatteryLevel, equipment);
     }
 
     public void repair(Equipment equipment) {
@@ -37,11 +37,11 @@ public class RepairRobot extends RoboticUnits implements EmergencyResponder {
 
     @Override
     public void handleEmergency(Emergency incident) {
-        if (this.canHandleEmergency(incident.getType()) && this.isAvailable()) {
-            System.out.println("RepairRobot " + this.getId() + " is handling the emergency: " + incident.getType());
-            incident.status = EmergencyStatus.RESOLVED; // Mark the emergency as resolved
+        if (this.canHandleEmergency(incident.getEmergencyType()) && this.isAvailable()) {
+            System.out.println("RepairRobot " + this.getId() + " is handling the emergency: " + incident.getEmergencyType());
+            incident.setEmergencyStatus(EmergencyStatus.RESOLVED); // Mark the emergency as resolved
         } else {
-            System.out.println("RepairRobot " + this.getId() + " cannot handle the emergency: " + incident.getType());
+            System.out.println("RepairRobot " + this.getId() + " cannot handle the emergency: " + incident.getEmergencyType());
         }
 
     }
