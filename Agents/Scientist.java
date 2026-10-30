@@ -40,7 +40,8 @@ public class Scientist extends HumanPersonnel
 
     public void research()
     {
-        fatigueLevel++;
+        fatigueLevel+=5;
         healthAnalysis(fatigueLevel);
+        this.onMission = true;
     }
 }

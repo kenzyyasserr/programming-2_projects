@@ -1,6 +1,6 @@
 package Agents;
-import enums.*;
 import Locations.ColonyFacility;
+import enums.*;
 
 public class FireFighter extends HumanPersonnel
 {
@@ -27,5 +27,11 @@ public class FireFighter extends HumanPersonnel
                 break;
         }
         return skilled;
+    }
+    public void rescue()
+    {
+        fatigueLevel+=5;
+        healthAnalysis(fatigueLevel);
+        this.onMission = true;
     }
 }

@@ -1,7 +1,7 @@
 package Agents;
-import enums.*;
 import Equipments.Equipment;
 import Locations.ColonyFacility;
+import enums.*;
 
 public class Engineer extends HumanPersonnel
 {
@@ -43,11 +43,13 @@ public class Engineer extends HumanPersonnel
     {
         fatigueLevel++;
         healthAnalysis(fatigueLevel);
+        this.onMission = true;
     }
 
     void repairFacility(ColonyFacility facility)
     {
         fatigueLevel++;
         healthAnalysis(fatigueLevel);
+        this.onMission = true;
     }
 }
