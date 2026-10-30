@@ -4,7 +4,7 @@ import Locations.Location;
 
 public class Drone extends RoboticUnits {
     public Drone(Location currentLocation, String id, double BatteryLevel,boolean onMission, Equipment[] equipment) {
-        super(currentLocation, id, BatteryLevel, onMission, equipment);
+        super(currentLocation, id, BatteryLevel,equipment);
     }
 
     public void aerialReconnaissance(){
@@ -14,6 +14,6 @@ public class Drone extends RoboticUnits {
 
     @Override
     public boolean canOperateIn(Location loc) {
-        return !loc.isGroundAccessible();
+        return !loc.isGroundVehicleAccessible();
     }
 }

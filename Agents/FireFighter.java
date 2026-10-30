@@ -7,9 +7,10 @@ import Locations.ColonyFacility;
 
 public class FireFighter extends HumanPersonnel
 {
+    private static final Skill[] FIRE_FIGHTER_SKILLS = {Skill.FIREFIGHTING};
     // ------------------------- Constructor -------------------------
-    public FireFighter(){
-        super(name, skills, fatigueLevel);
+    public FireFighter(String name, String id,ColonyFacility currentLocation,int fatigueLevel){
+        super(name,id,currentLocation, fatigueLevel, FIRE_FIGHTER_SKILLS);
     }
 
     // ---------------- Methods Implementation -----------------
@@ -29,37 +30,5 @@ public class FireFighter extends HumanPersonnel
                 break;
         }
         return skilled;
-    }
-
-    @Override
-    public boolean isUsable(Skill skill)
-    {
-        HealthStatus status = getHealth();
-        boolean usable;
-        if(hasSkill(skill))
-        {
-            switch (status) {
-                case HEALTHY:
-                case MODERATE:
-                    if(!onMission){
-                        System.out.println("Fire fighter is usable for mission as they are skilled, healthy and available");
-                        usable = true;
-                    }
-                    else{
-                        System.out.println("Fire fighter cannot perform mission as they are on another mission");
-                        usable = false;
-                    }
-                    break;
-
-                default:
-                    System.out.println("Fire fighter cannot perform mission as they are unhealthy");
-                    usable = false;
-            }
-        }
-        else{
-            System.out.println("Fire fighter is unusable as they are not skilled enough");
-            usable = false;
-        }
-        return usable;
     }
 }

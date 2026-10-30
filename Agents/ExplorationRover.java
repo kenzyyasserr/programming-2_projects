@@ -5,7 +5,7 @@ import Locations.Location;
 
 public class ExplorationRover extends RoboticUnits {
     public ExplorationRover(Location currentLocation, String id, double BatteryLevel,boolean onMission, Equipment[] equipment) {
-        super(currentLocation, id, BatteryLevel, onMission, equipment);
+        super(currentLocation, id, BatteryLevel, equipment);
     }
 
     public void explore(){
@@ -15,7 +15,7 @@ public class ExplorationRover extends RoboticUnits {
 
     @Override
     public boolean canOperateIn(Location loc) {
-        return loc.isGroundAccessible() && !loc.isIndoorsFacility();
+        return loc.isGroundVehicleAccessible() && !loc.isIndoorsFacility();
     }
 
 }

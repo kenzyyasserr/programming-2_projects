@@ -6,6 +6,7 @@ import java.util.Arrays;
 import Locations.*;
 import Resources.*;
 import Missions.*;
+import Agents.*;
 
 public class MarsColony{
     private Emergency currentEmergency; //no emergency if null
@@ -15,6 +16,7 @@ public class MarsColony{
     private ArrayList<Location> locations; //arraylist which includes facilities and the martian surface;
     private Mission activeMission;
     private EnvironmentCondition environment;
+    private ArrayList<Agent> agents;
     public MarsColony() {
         facilities = new ArrayList<>();
         locations = new ArrayList<>();
@@ -33,6 +35,9 @@ public class MarsColony{
     }
     public ColonyFacility[] getFacilities(){
         return facilities.toArray(new ColonyFacility[0]);
+    }
+    public Agent[] getColonyAgents(){
+        return agents.toArray(new Agent[0]);
     }
 
 }

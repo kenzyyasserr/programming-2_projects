@@ -40,38 +40,6 @@ public class Scientist extends HumanPersonnel
         return skilled;
     }
 
-    @Override
-    public boolean isUsable(Skill skill)
-    {
-        HealthStatus status = getHealth();
-        boolean usable;
-        if(hasSkill(skill))
-        {
-            switch (status) {
-                case HEALTHY:
-                case MODERATE:
-                    if(!onMission){
-                        System.out.println("Scientist is usable for mission as they are skilled, healthy and available");
-                        usable = true;
-                    }
-                    else{
-                        System.out.println("Scientist cannot perform mission as they are on another mission");
-                        usable = false;
-                    }
-                    break;
-
-                default:
-                    System.out.println("Scientist cannot perform mission as they are unhealthy");
-                    usable = false;
-            }
-        }
-        else{
-            System.out.println("Scientist is unusable as they are not skilled enough");
-            usable = false;
-        }
-        return usable;
-    }
-
     void research()
     {
         fatigueLevel++;

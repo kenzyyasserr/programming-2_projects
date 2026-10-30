@@ -1,5 +1,7 @@
 package Agents;
 import Locations.ColonyFacility;
+import enums.EquipmentType;
+import enums.HealthStatus;
 import enums.Skill;
 
 public abstract class HumanPersonnel extends Agent
@@ -16,9 +18,26 @@ public abstract class HumanPersonnel extends Agent
 
     public void setName(String name){this.name = name;}
 
+    public boolean isUsable(){
+        HealthStatus status = getHealth();
+        return (status == HealthStatus.HEALTHY ||status == HealthStatus.MODERATE)&& !onMission;
+    }
+    @Override
+    public boolean canPerformMission(Skill requiredSkill,EquipmentType equipmentType) {
+    if (!isUsable()) {
+        System.out.println("Personnel is unusable.");
+        return false;
+    }
+        if (!hasSkill(requiredSkill)) {
+            System.out.println("Personnel lacks a required skill.");
+            return false;
+        }
+
+    System.out.println("Personnel can perform the mission.");
+    return true;
+}
     // ---------------------- Abstract Methods -----------------------------
     public abstract boolean hasSkill(Skill skill);
-
     // ---------------------- Constructor ------------------------------
     public HumanPersonnel(String name, String id,ColonyFacility currentLocation,int fatigueLevel,Skill[] skills)
     {

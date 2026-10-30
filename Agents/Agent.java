@@ -1,21 +1,19 @@
 package Agents;
 import Locations.ColonyFacility;
 import Locations.Location;
-import enums.HealthStatus;
-import enums.MissionType;
-import enums.Skill;
+import enums.*;
 
 
 public abstract class Agent
 {
     // --------------------------- Attributes ----------------------------------
-    protected ColonyFacility currentLocation;
+    protected Location currentLocation;
     protected HealthStatus healthStatus;
     protected String id;
     protected boolean onMission;
 
     // -------------------------- Constructor ---------------------------------------
-    protected Agent(ColonyFacility currentLocation, String id)
+    protected Agent(Location currentLocation, String id)
     {
         this.currentLocation = currentLocation;
         this.healthStatus = HealthStatus.HEALTHY; // Default health status
@@ -23,7 +21,8 @@ public abstract class Agent
     }
 
     // --------------------------- Abstract Methods ----------------------------------
-    public abstract boolean isUsable(Skill skill);  // health status, fatigue levels and isAvailable + recalls hasSkill
+    public abstract boolean isUsable();  // health status, fatigue levels and isAvailable + recalls hasSkill
+    public abstract boolean canPerformMission(Skill skill,EquipmentType equipmentType);
 
     // ------------------------ Concrete Methods ---------------------------------------
     public HealthStatus getHealth() {return healthStatus;}
@@ -41,18 +40,6 @@ public abstract class Agent
     }
 
     public void changeHealth(HealthStatus status) {healthStatus = status;}
-
-    public boolean canPerformMission(Skill skill)  // checks isUsable
-    {
-        if(isUsable(skill)){
-            System.out.println("This personnel can perform mission as they are usable");
-            return true;
-        }
-        else{
-            System.out.println("This personnel cannot perform mission as they are unusable");
-            return false;
-        }
-    }
 
     public void healthAnalysis(int fatigueLevel)
     {
