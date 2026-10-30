@@ -32,6 +32,5 @@ public class FireFighter extends HumanPersonnel implements EmergencyResponder
     {
         fatigueLevel+=5;
         healthAnalysis(fatigueLevel);
-        this.onMission = true;
     }
 }
