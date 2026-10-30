@@ -15,7 +15,6 @@ public class RepairRobot extends RoboticUnits implements EmergencyResponder {
     public void repair(Equipment equipment) {
         equipment.repair();
         this.changeBatteryLevel(-15); // Decrease battery level by 15 units
-        this.onMission = true; // Set the robot on a mission
     }
 
     @Override

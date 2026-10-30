@@ -9,7 +9,6 @@ public class Drone extends RoboticUnits {
 
     public void aerialReconnaissance(){
         this.changeBatteryLevel(-20); // Decrease battery level by 20 units
-        this.onMission = true; // Set the drone on a mission
     }
 
     @Override
