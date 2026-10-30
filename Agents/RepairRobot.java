@@ -31,7 +31,7 @@ public class RepairRobot extends RoboticUnits implements EmergencyResponder {
 
     @Override
     public boolean canHandleEmergency(EmergencyType type) {
-        return type != EmergencyType.MEDICAL;
+        return type != EmergencyType.MEDICAL && type != EmergencyType.FIRE;
     }
 
 
