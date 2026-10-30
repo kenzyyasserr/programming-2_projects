@@ -18,6 +18,7 @@ public abstract class HumanPersonnel extends Agent
 
     public void setName(String name){this.name = name;}
 
+    @Override
     public boolean isUsable(){
         HealthStatus status = getHealth();
         return (status == HealthStatus.HEALTHY ||status == HealthStatus.MODERATE)&& !onMission;
