@@ -22,13 +22,17 @@ public abstract class Agent
 
     // --------------------------- Abstract Methods ----------------------------------
     public abstract boolean isUsable();  // health status, fatigue levels and isAvailable + recalls hasSkill
-    public abstract boolean canPerformMission(Skill skill,EquipmentType equipmentType);
-
     // ------------------------ Concrete Methods ---------------------------------------
     public HealthStatus getHealth() {return healthStatus;}
     public Location getCurrentLocation() {return currentLocation;}
     public String getId() {return id;}
+    public boolean canPerformMission(Skill skill) {
+        return false; //if used on a robotic unit, this method will be called from the superclass
+    }
 
+    public boolean canPerformMission(EquipmentType equipmentType) {
+        return false; //if used on a human agent, this method will be called from the superclass
+    }
     public void setCurrentLocation(Location location) {this.currentLocation = location;}
 
     public void setOnMission(Mission mission)
