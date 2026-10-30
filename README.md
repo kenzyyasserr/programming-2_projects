@@ -5,8 +5,8 @@ Agent (abstract)                            isUsable(), canPerform(Mission)
  ├── HumanPersonnel (abstract)              skills, health, fatigueLevel, currentLocation, id, onMission, changeHealth, canPerformMission, healthAnalysis
  │     ├── Scientist                        canPerform(), canHandleEmergency(), research()
  │     ├── Engineer                         canPerform(), canHandleEmergency(), repairEquipment(Equipment equipment), repairFacility(ColonyFacility facility), implements EmergencyResponder
- │     └── MedicalOfficer                   canPerform(), canHandleEmergency(), implements EmergencyResponder
- |     |___ FireFighter                     canPerform(), canHandleEmergency(), implements EmergencyResponder
+ │     └── MedicalOfficer                   canPerform(), canHandleEmergency(), rescue(), implements EmergencyResponder
+ |     |___ FireFighter                     canPerform(), canHandleEmergency(), rescue, implements EmergencyResponder
  └── RoboticUnit (abstract)                 battery, damage, location
        ├── ExplorationRover                 canPerform(), canOperateIn()
        ├── RepairRobot                      canPerform(), canHandleEmegency(), canOperateIn(), implements EmergencyResponder

@@ -1,6 +1,6 @@
 package Agents;
-import enums.*;
 import Locations.ColonyFacility;
+import enums.*;
 
 public class MedicalOfficer extends HumanPersonnel
 {
@@ -33,5 +33,10 @@ public class MedicalOfficer extends HumanPersonnel
         return skilled;
     }
 
-    
+    public void rescue()
+    {
+        fatigueLevel+=5;
+        healthAnalysis(fatigueLevel);
+        this.onMission = true;
+    }    
 }
