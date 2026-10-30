@@ -2,7 +2,7 @@ package Agents;
 import Locations.ColonyFacility;
 import enums.*;
 
-public class MedicalOfficer extends HumanPersonnel
+public class MedicalOfficer extends HumanPersonnel implements EmergencyResponder
 {
     private static final Skill[] MEDICAL_OFFICER_SKILLS = {Skill.SURGERY, Skill.FIRST_AID};
     // ------------------------- Constructor -------------------------
