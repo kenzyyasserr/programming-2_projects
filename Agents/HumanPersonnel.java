@@ -20,8 +20,14 @@ public abstract class HumanPersonnel extends Agent
 
     public boolean isUsable(){
         HealthStatus status = getHealth();
-        return (status == HealthStatus.HEALTHY ||status == HealthStatus.MODERATE)&& !onMission;
+        if((status == HealthStatus.HEALTHY ||status == HealthStatus.MODERATE)&& !onMission)
+        {
+            System.out.println("This personnel's health allows him to perform the mission");
+            return true;
+        }
+        return false;
     }
+    
     @Override
     public boolean canPerformMission(Skill requiredSkill,EquipmentType equipmentType) {
     if (!isUsable()) {
