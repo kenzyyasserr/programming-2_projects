@@ -2,9 +2,7 @@ package Missions;
 
 import java.util.ArrayList;
 
-import Agents.Agent;
-import Agents.ExplorationRover;
-import Agents.Scientist;
+import Agents.*;
 import enums.*;
 import Locations.*;
 import MarsColonies.MarsColony;

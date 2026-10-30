@@ -37,6 +37,5 @@ public class MedicalOfficer extends HumanPersonnel
     {
         fatigueLevel+=5;
         healthAnalysis(fatigueLevel);
-        this.onMission = true;
     }    
 }

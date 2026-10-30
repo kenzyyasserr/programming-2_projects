@@ -42,6 +42,5 @@ public class Scientist extends HumanPersonnel
     {
         fatigueLevel+=5;
         healthAnalysis(fatigueLevel);
-        this.onMission = true;
     }
 }

@@ -43,13 +43,11 @@ public class Engineer extends HumanPersonnel
     {
         fatigueLevel++;
         healthAnalysis(fatigueLevel);
-        this.onMission = true;
     }
 
     void repairFacility(ColonyFacility facility)
     {
         fatigueLevel++;
         healthAnalysis(fatigueLevel);
-        this.onMission = true;
     }
 }
