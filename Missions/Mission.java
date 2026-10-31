@@ -154,6 +154,7 @@ public abstract class Mission implements TimeOperation
     private void fail(String reason) {
         failureReason = reason;
         setMissionState(MissionState.FAILED);
+        System.out.println(reason);
     }
 
 /*---------------------------------------------------------------------------------
@@ -338,7 +339,6 @@ Check properties of mission (aka require surface access or no and communication 
 /*--------------------------------------------------------------------------------------------
 TIME HANDLING
  ---------------------------------------------------------------------------------------------*/
-
     public void timePass(){
         if (isFinished()) {
             return;
@@ -355,6 +355,7 @@ TIME HANDLING
                     fail(failureReason);
                     return;
                 }
+                printMissionInfo();
                 break;
             case 1:
                 if (!activateMission()) {
@@ -362,10 +363,12 @@ TIME HANDLING
                     finishMission();
                     return;
                 }
+                printMissionInfo();
                 break;
 
             case 2:
                 finishMission();
+                printMissionInfo();
                 return;
         }
         currentStage++;
