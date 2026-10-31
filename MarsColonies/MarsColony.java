@@ -40,6 +40,9 @@ public class MarsColony{
         }
         return false;
     }
+    public MarsSurface getMarsSurface(){
+        return marsSurface;
+    }
     public EnvironmentCondition getEnvironmentCondition(){
         return environmentCondition;
     }

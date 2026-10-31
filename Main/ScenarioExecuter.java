@@ -1,6 +1,6 @@
 package Main;
 import java.util.ArrayList;
-import Agents.Agent;
+import Agents.*;
 import Agents.ExplorationRover;
 import Agents.Scientist;
 import Locations.ColonyFacility;
@@ -11,17 +11,22 @@ import Missions.ExplorationMission;
 import Missions.Mission;
 import Simulation.Simulation;
 import enums.EnvironmentCondition;
+import Locations.*;
 
 public class ScenarioExecuter {
 
     public static void scenario1() {
         MarsColony colony = new MarsColony();
-        
-        ColonyFacility = new Laboratory("Lab1", 10, {}, null)
+
+        ColonyFacility lab1= new Laboratory("Lab1");
+        Location mars = colony.getMarsSurface();
         //Create the required agents
 
-        Scientist scientist = new Scientist("Salma","2000",ColonyFacility currentLocation,int fatigueLevel);
-        ExplorationRover rover = new ExplorationRover(...);
+        Scientist scientist = new Scientist("Salma","SCI01",lab1,10);
+        ExplorationRover rover = new ExplorationRover(
+            mars,"ROV01",
+            100,
+            new Equipment[]{new Equipment(EquipmentType.)});
 
         // 3. Add agents and equipment to the colony
         colony.addAgent(scientist);
