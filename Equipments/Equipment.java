@@ -7,9 +7,10 @@ public class Equipment implements CanBeFixed
     private EquipmentType type;
     private boolean isOperational = true;
 
-    // ----------------- Methods ---------------------------------
+    // ---------------------- Constructor ----------------------------
     public Equipment(EquipmentType type) {this.type = type;}
 
+    // ----------------- Methods ---------------------------------
     public boolean isOperational() {return isOperational;}
 
     public EquipmentType getType(){return type;}
