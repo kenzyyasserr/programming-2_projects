@@ -3,6 +3,7 @@ package Missions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import Agents.Agent;
+import Agents.RoboticUnits;
 import enums.*;
 import Locations.*;
 import MarsColonies.MarsColony;
@@ -133,7 +134,7 @@ public abstract class Mission implements TimeOperation
         boolean found = false;
         for (Agent agent : colony.getColonyAgents()) {
 
-            if (agent != null && agent.canPerformMission(equipment)) {
+            if (agent != null && canWorkAt(agent) && agent.canPerformMission(equipment)) {
                 if (!temp.contains(agent)) {
                     temp.add(agent);
                 }
@@ -158,14 +159,21 @@ public abstract class Mission implements TimeOperation
     private void fail(String reason) {
         failureReason = reason;
         setMissionState(MissionState.FAILED);
-        System.out.println(reason);
+        System.out.println("Mission cannot be assigned. Reason: " + reason);
     }
 
 /*---------------------------------------------------------------------------------
 CHECKING REQUIRMENTS
  ---------------------------------------------------------------------------------*/
+    // Humans can work anywhere. robots must be able to operate at the target location
+    private boolean canWorkAt(Agent agent) {
+        if (agent instanceof RoboticUnits robot) {
+            return robot.canOperateIn(targetLocation);
+        }
+        return true;
+    }
     private boolean noOtherActiveMissions(){
-        if(colony.getActiveMission()!=null){
+        if (colony.getReservedMission() != null) {
             failureReason = "Another mission is already active";
             return false;
         }
@@ -204,7 +212,7 @@ CHECKING REQUIRMENTS
         for (EquipmentType equipment : requiredRobotEquipment) {
             boolean covered = false;
             for (Agent agent : colony.getColonyAgents()) {
-                if (agent != null && agent.canPerformMission(equipment)) {
+                if (agent != null && canWorkAt(agent) && agent.canPerformMission(equipment)) {
                     covered = true;
                     break;
                 }
@@ -224,7 +232,7 @@ CHECKING REQUIRMENTS
                 return true;
             case DUST_STORM:
                 if (requiresSurfaceAccess()) {
-                    failureReason = "Cannot start mission during a dust storm.";
+                    failureReason = "Surface operations are not allowed during a dust storm.";
                     return false;
                 }
                 return true;
@@ -290,7 +298,8 @@ MISSION STEPS:
         if (!assignAgents()) {
         fail(failureReason);
         return false;
-}
+        }    
+        colony.reserve(this);   
         // Save original locations before moving agents
         originalAgentLocations = new Location[assignedAgents.length];
         for (int i = 0; i < assignedAgents.length; i++) {
@@ -329,7 +338,10 @@ MISSION STEPS:
             assignedAgents[i].setCurrentLocation(originalAgentLocations[i]);
             assignedAgents[i].setOnMission(null);
         }
-        colony.setActiveMission(null);
+        if (colony.getActiveMission() == this) {
+            colony.setActiveMission(null);
+        }
+        colony.release(this);
     }
     protected abstract boolean executeMission(); //the actual mission execution depending on the mission type
     public boolean isFinished(){

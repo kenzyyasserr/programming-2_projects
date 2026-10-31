@@ -16,6 +16,7 @@ public class MarsColony{
     private ArrayList<Location> locations; //arraylist which includes facilities and the martian surface;
     private Mission activeMission;
     private ArrayList<Agent> agents;
+    private Mission reservedMission;   // mission that holds the colony (ASSIGNED or ACTIVE)
     public MarsColony() {
         facilities = new ArrayList<>();
         locations = new ArrayList<>();
@@ -40,6 +41,24 @@ public class MarsColony{
         }
         return false;
     }
+
+    public boolean reserve(Mission mission) {
+        if (reservedMission == null) {
+            reservedMission = mission;
+            return true;
+        }
+        return false;
+    }
+
+    public void release(Mission mission) {
+        if (reservedMission == mission) {
+            reservedMission = null;
+        }
+    }
+
+    public Mission getReservedMission() {
+        return reservedMission;
+    }
     public MarsSurface getMarsSurface(){
         return marsSurface;
     }
@@ -60,17 +79,6 @@ public class MarsColony{
         agents.add(agent);
     }
     }
-    private boolean canAddAgent(ColonyFacility facility) {
-    int count = 0;
-
-    for (Agent agent : agents) {
-        if (agent.getCurrentLocation() == facility) {
-            count++;
-        }
-    }
-
-    return count < facility.getCapacity();
-}
 
     public void addLocations(Location location) {
         if (location != null && !locations.contains(location)) {
@@ -82,4 +90,9 @@ public class MarsColony{
             }
         }
     }
+    public void setEnvironmentCondition(EnvironmentCondition condition) {
+    if (condition != null) {
+        this.environmentCondition = condition;
+    }
+}
 }

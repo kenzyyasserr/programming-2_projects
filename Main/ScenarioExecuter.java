@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import Agents.*;
 import MarsColonies.MarsColony;
 import Missions.*;
+import Resources.BatteryPower;
+import Resources.Fuel;
+import Resources.Resource;
 import Simulation.Simulation;
 import enums.EnvironmentCondition;
 import enums.EquipmentType;
@@ -69,7 +72,7 @@ public class ScenarioExecuter {
     colony.addLocations(storage);
     colony.addLocations(power);
 
-    // Only an unsuitable agent: an engineer cannot do VEHICLE_OPERATION
+    // an engineer cannot do VEHICLE_OPERATION
     Engineer engineer = new Engineer("Shery", "E01", habitat, 10);
     ExplorationRover rover = new ExplorationRover( //valid rover (the mission is supposed to fail because engineer doesnt have the required skill )
         mars,"ROV01",100,
@@ -80,34 +83,135 @@ public class ScenarioExecuter {
     ExplorationMission mission = new ExplorationMission(mars, colony);
 
 
-    Simulation simulation = new Simulation();
-    simulation.addTimeOperation(mission);
-
-    System.out.println("Before execution:");
-    System.out.println("----------------------------------------------------------------------------------------------------");
-    mission.printMissionInfo();
-
-    simulation.advanceTime(3);
-
-    System.out.println("After execution:");
-    System.out.println("----------------------------------------------------------------------------------------------------");
-    System.out.println("Mission cannot be assigned. Reason: " + mission.getFailureReason());
-    System.out.println("Mission state: " + mission.getMissionState());
-    System.out.println("Mission ever became active: "
-            + (mission.getMissionState() == MissionState.ACTIVE
-               || !mission.getConsumedResources().isEmpty()));
-    mission.printMissionInfo();
+    runMission(mission);
 }
 
     public static void scenario3() {
-        // Resource Shortage
-    }
+    // fuel is insufficient
+    MarsColony colony = new MarsColony();
+    ColonyFacility habitat = new Habitat("Hab1");           // oxygen
+    ColonyFacility storage = new StorageFacility("Store1"); // water
+    ColonyFacility power   = new PowerStation("Power1");    // fuel, battery
+    ColonyFacility lab1    = new Laboratory("Lab1");
+    Location mars = colony.getMarsSurface();
+
+    //  only 80 available but exploration mission needs 100
+    power.setResources(new Resource[]{
+        new Fuel(80),
+        new BatteryPower(100)
+    });
+
+    colony.addLocations(mars);
+    colony.addLocations(lab1);
+    colony.addLocations(habitat);
+    colony.addLocations(storage);
+    colony.addLocations(power);
+
+    // Suitable agents so only reason for failure is resources
+    Scientist scientist = new Scientist("Salma", "SCI01", lab1, 10);
+    ExplorationRover rover = new ExplorationRover(
+        mars, "ROV01", 100,
+        new Equipment[]{new Equipment(EquipmentType.DRILL), new Equipment(EquipmentType.SAMPLE_COLLECTOR)});
+    colony.addAgent(scientist);
+    colony.addAgent(rover);
+
+    ExplorationMission mission = new ExplorationMission(mars, colony);
+    runMission(mission);
+}
 
     public static void scenario4() {
         // Emergency Handling
     }
 
     public static void scenario5() {
-        // Environmental Effect
+        // dust storm blocks a surface mission
+        MarsColony colony = new MarsColony();
+        ColonyFacility habitat = new Habitat("Hab1");           // oxygen
+        ColonyFacility storage = new StorageFacility("Store1"); // water
+        ColonyFacility power   = new PowerStation("Power1");    // fuel, battery
+        ColonyFacility lab1    = new Laboratory("Lab1");
+        Location mars = colony.getMarsSurface();
+        colony.addLocations(mars);
+        colony.addLocations(lab1);
+        colony.addLocations(habitat);
+        colony.addLocations(storage);
+        colony.addLocations(power);
+
+        // Suitable agents and enough resources so only the environment can cause failure
+        Scientist scientist = new Scientist("Salma", "SCI01", lab1, 10);
+        ExplorationRover rover = new ExplorationRover(
+            mars, "ROV01", 100,
+            new Equipment[]{new Equipment(EquipmentType.DRILL), new Equipment(EquipmentType.SAMPLE_COLLECTOR)});
+        colony.addAgent(scientist);
+        colony.addAgent(rover);
+
+        // introduce the environmental condition
+        colony.setEnvironmentCondition(EnvironmentCondition.DUST_STORM);
+        System.out.println("Environment condition: " + colony.getEnvironmentCondition());
+
+        ExplorationMission mission = new ExplorationMission(mars, colony);
+        runMission(mission);
+    }
+    public static void scenario6() {
+        // Multi-facility consumption: resources are drawn from several facilities
+        MarsColony colony = new MarsColony();
+        ColonyFacility habitat = new Habitat("Hab1");
+        ColonyFacility storage = new StorageFacility("Store1");
+        ColonyFacility power1  = new PowerStation("Power1");
+        ColonyFacility power2  = new PowerStation("Power2");
+        ColonyFacility lab1    = new Laboratory("Lab1");
+        Location mars = colony.getMarsSurface();
+
+        power1.setResources(new Resource[]{ new Fuel(40), new BatteryPower(30) });
+        power2.setResources(new Resource[]{ new Fuel(60), new BatteryPower(100) });
+
+        colony.addLocations(mars);
+        colony.addLocations(lab1);
+        colony.addLocations(habitat);
+        colony.addLocations(storage);
+        colony.addLocations(power1);
+        colony.addLocations(power2);
+
+        Scientist scientist = new Scientist("Salma", "SCI01", lab1, 10);
+        ExplorationRover rover = new ExplorationRover(mars, "ROV01", 100,
+            new Equipment[]{new Equipment(EquipmentType.DRILL), new Equipment(EquipmentType.SAMPLE_COLLECTOR)});
+        colony.addAgent(scientist);
+        colony.addAgent(rover);
+
+        runMission(new ExplorationMission(mars, colony));
+
+        System.out.println("Power1 after mission:");
+        power1.printResourcesInFacility();
+        System.out.println("Power2 after mission:");
+        power2.printResourcesInFacility();
+        }
+    public static void scenario7() {
+        // Research mission in the laboratory
+        MarsColony colony = new MarsColony();
+        ColonyFacility habitat = new Habitat("Hab1");
+        ColonyFacility storage = new StorageFacility("Store1");
+        ColonyFacility lab1    = new Laboratory("Lab1");
+        colony.addLocations(lab1);
+        colony.addLocations(habitat);
+        colony.addLocations(storage);
+
+        Scientist scientist = new Scientist("Salma", "SCI01", habitat, 10);
+        colony.addAgent(scientist);
+
+        runMission(new ResearchMission(lab1, colony));
+    }
+    private static void runMission(Mission mission) {
+        Simulation simulation = new Simulation();
+        simulation.addTimeOperation(mission);
+
+        System.out.println("Before execution:");
+        System.out.println("----------------------------------------------------------------------------------------------------");
+        mission.printMissionInfo();
+
+        simulation.advanceTime(3);
+
+        System.out.println("After execution:");
+        System.out.println("----------------------------------------------------------------------------------------------------");
+        mission.printMissionInfo();
     }
 }
