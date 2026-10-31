@@ -1,8 +1,7 @@
 package Agents;
-import Locations.ColonyFacility;
 import Locations.Location;
-import enums.*;
 import Missions.*;
+import enums.*;
 
 public abstract class Agent
 {
@@ -27,11 +26,11 @@ public abstract class Agent
     public Location getCurrentLocation() {return currentLocation;}
     public String getId() {return id;}
     public boolean canPerformMission(Skill skill) {
-        return false; //if used on a robotic unit, this method will be called from the superclass
+        return false; //if used on a human agent, this method will be called from the superclass
     }
 
     public boolean canPerformMission(EquipmentType equipmentType) {
-        return false; //if used on a human agent, this method will be called from the superclass
+        return false; //if used on a robotic unit, this method will be called from the superclass
     }
     public void setCurrentLocation(Location location) {this.currentLocation = location;}
 
