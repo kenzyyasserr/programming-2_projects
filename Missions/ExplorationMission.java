@@ -15,11 +15,9 @@ public class ExplorationMission extends Mission {
     private static final EquipmentType[] REQUIRED_ROBOT_EQUIPMENT = {EquipmentType.DRILL, EquipmentType.SAMPLE_COLLECTOR};
     private static final EquipmentType[] REQUIRED_FACILITY_EQUIPMENT = {};
 
-    public ExplorationMission(Location targetLocation,
-        ResourceType[] neededTypes, int[] neededAmounts, 
-        Skill[] requiredSkills, EquipmentType[] requiredRobotEquipment,
-        EquipmentType[] requiredFacilityEquipment, MarsColony colony){
+    public ExplorationMission(Location targetLocation, MarsColony colony){
             super(targetLocation,EXPLORATION_RESOURCES,NEEDED_AMOUNTS,EXPLORATION_MISSION_SKILLS,REQUIRED_ROBOT_EQUIPMENT,REQUIRED_FACILITY_EQUIPMENT,colony);
+            this.type = MissionType.EXPLORATION;
         }
     @Override
     protected boolean executeMission() {

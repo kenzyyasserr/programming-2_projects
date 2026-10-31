@@ -31,16 +31,12 @@ public abstract class HumanPersonnel extends Agent
     {
         if (!isUsable())
         {
-            System.out.println("Personnel is unusable.");
             return false;
         }
         if (!hasSkill(requiredSkill))
         {
-            System.out.println("Personnel lacks a required skill.");
             return false;
         }
-
-        System.out.println("Personnel can perform the mission.");
         return true;
     }
     

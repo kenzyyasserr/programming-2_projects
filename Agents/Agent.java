@@ -55,4 +55,9 @@ public abstract class Agent
     public boolean getIsOnMission(){
         return onMission;
     }
-}
+    //-----------------------OVERRIDING TO STRING:-------------------------------
+    @Override
+    public String toString() {
+        return getClass().getName() + " " + id;
+    }
+    }

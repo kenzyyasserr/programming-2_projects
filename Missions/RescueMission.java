@@ -13,6 +13,7 @@ public class RescueMission extends Mission {
 
     public RescueMission(Location targetLocation, MarsColony colony){
             super(targetLocation,RESCUE_RESOURCES,NEEDED_AMOUNTS,RESCUE_MISSION_SKILLS,REQUIRED_ROBOT_EQUIPMENT,REQUIRED_FACILITY_EQUIPMENT,colony);
+            this.type = MissionType.RESCUE;
         }
     @Override
     protected boolean executeMission() {
