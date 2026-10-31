@@ -6,29 +6,30 @@ import enums.HealthStatus;
 import enums.Skill;
 
 
-public abstract class RoboticUnits extends Agent {
+public abstract class RoboticUnits extends Agent
+{
+    // ---------------------- Attributes --------------------------
     protected double batteryLevel;
     Equipment[] equipment;
 
+    // --------------------- Constructor --------------------------------
     public RoboticUnits(Location currentLocation, String id, double BatteryLevel, Equipment[] equipment) {
         super(currentLocation, id);
         this.batteryLevel = BatteryLevel; // Start with full battery
         this.equipment = equipment;
     }
 
-    public double getBatteryLevel() {
-        return batteryLevel;
-    }
+    // ------------------------ Abstract Methods -----------------------
+    public abstract boolean canOperateIn(Location loc);
 
-    public Equipment[] getEquipment(){
-        return equipment;
-    }
+    // ----------------------- Concrete Methods ----------------------
+    public double getBatteryLevel() {return batteryLevel;}
+    public Equipment[] getEquipment() {return equipment;}
 
-    public void setEquipment(Equipment[] equipment){
-        this.equipment = equipment;
-    }
+    public void setEquipment(Equipment[] equipment) {this.equipment = equipment;}
 
-    public void changeBatteryLevel(double increasOrDecrease) {
+    public void changeBatteryLevel(double increasOrDecrease)
+    {
         if (increasOrDecrease < 0) {
             if(batteryLevel + increasOrDecrease < 0) {
                 batteryLevel = 0;
@@ -44,36 +45,42 @@ public abstract class RoboticUnits extends Agent {
             }
         }
     }
+
     @Override
     public boolean canPerformMission(EquipmentType equipmentType)  // checks isUsable
     {
-        if (!isUsable()) {
+        if (!isUsable())
+        {
         System.out.println("Robotic unit is unusable.");
         return false;
-    }
-        if (!hasEquipment(equipmentType)) {
+        }
+        if (!hasEquipment(equipmentType))
+        {
             System.out.println("Robotic unit does not have the required equipment.");
             return false;
         }
 
-    System.out.println("Personnel can perform the mission.");
-    return true;
+        System.out.println("Personnel can perform the mission.");
+        return true;
     }
-    public boolean hasEquipment(EquipmentType equipmentType){
+
+    public boolean hasEquipment(EquipmentType equipmentType)
+    {
         if(equipment!=null){
-            for (Equipment equipment1 : equipment) {
-                if (equipment1.getType() == equipmentType && equipment1.isUsable()) {
+            for (Equipment equipment1 : equipment)
+            {
+                if (equipment1.getType() == equipmentType && equipment1.isUsable())
+                {
                     return true;
                 }
             }
         }
         return false;
     }
+
     @Override
-    public boolean isUsable(){
+    public boolean isUsable()
+    {
         return this.batteryLevel > 20 && this.healthStatus == HealthStatus.HEALTHY && !this.onMission; 
     }
-
-     public abstract boolean canOperateIn(Location loc);
-
 }
