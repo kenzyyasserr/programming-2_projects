@@ -43,4 +43,17 @@ public class RepairMission extends Mission {
     public boolean requiresCommunication(){
         return false;
     }
+    @Override
+    //has extra info to print because it also prints the information of item that willbe fixed
+    public void printMissionInfo() {
+        super.printMissionInfo();
+
+        System.out.println("Item being repaired: " + itemToBeFixed);
+        if (itemToBeFixed instanceof Equipment equipment) {
+            System.out.println("Operational: " + equipment.isOperational());
+        }
+        else if (itemToBeFixed instanceof ColonyFacility facility) {
+            System.out.println("Damaged: " + facility.isOperational(colony.getEnvironmentCondition()));
+        }
+    }
 }

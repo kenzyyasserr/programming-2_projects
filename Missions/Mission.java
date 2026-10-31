@@ -385,22 +385,32 @@ TIME HANDLING
     -------------------------------------------------------------------------------*/
     public void printMissionInfo(){
         System.out.printf("Mission Type: %s\nMission State: %s\nLocation: %s\nAgents: %s\n\n",type,state,targetLocation.getLocationType(),Arrays.toString(assignedAgents));
+
         System.out.println("Resources before/after consumption:");
         printResourceState();
         System.out.println("Resources consumed by this mission:");
         for (ResourceUsage usage : consumedResources) {
             System.out.printf("%s: %d units from %s%n",usage.getType(),usage.getAmount(),usage.getSource());
         }
-    }
-    private void printResourceState() {
-    System.out.println("Current resource quantities:");
 
-    for (ResourceType resource : neededTypes) {
-        System.out.printf("%s: %d%n",
-            resource,
-            colony.getTotalQuantityOfResources(resource)
-        );
-    }
+        System.out.println("Assigned agents:");
+        if (assignedAgents != null) {
+            for (Agent agent : assignedAgents) {
+                System.out.println("ID: " + agent.getId());
+                System.out.println("Health: " + agent.getHealth());
+                System.out.println("Location: " + agent.getCurrentLocation());
+            }
+        }
+        }
+    private void printResourceState() {
+        System.out.println("Current resource quantities:");
+
+        for (ResourceType resource : neededTypes) {
+            System.out.printf("%s: %d%n",
+                resource,
+                colony.getTotalQuantityOfResources(resource)
+            );
+        }
     }
     
     /*-----------------------------------------------------
