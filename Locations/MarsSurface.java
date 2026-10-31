@@ -53,4 +53,8 @@ public class MarsSurface implements Location{
     public int getResourceQuantity(ResourceType type,EnvironmentCondition env){
         return 0; //no resources on martianSurface
     }
+    @Override
+    public String toString() {
+        return "Mars Surface";
+    }
 }

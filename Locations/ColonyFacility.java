@@ -118,6 +118,11 @@ public abstract class ColonyFacility implements Location,CanBeFixed
         }
         return false;
     }
+    //-----------------------OVERRIDING TO STRING:-------------------------------
+    @Override
+    public String toString() {
+        return name+" ("+type+")";
+    }
 }
 
 /*note: isDamaged is used to indicate that facility is not operational due to an emergency

@@ -15,6 +15,7 @@ public class ResearchMission extends Mission {
 
     public ResearchMission(Location targetLocation,MarsColony colony){
             super(targetLocation,RESEARCH_RESOURCES,NEEDED_AMOUNTS,RESEARCH_MISSION_SKILLS,REQUIRED_ROBOT_EQUIPMENT,REQUIRED_FACILITY_EQUIPMENT,colony);
+            this.type = MissionType.RESEARCH;
         }
     @Override
     protected boolean executeMission() {

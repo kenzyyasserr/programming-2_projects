@@ -14,7 +14,7 @@ public abstract class Mission implements TimeOperation
     private ResourceType[] neededTypes; 
     private int[] neededAmounts; 
     private MissionState state = MissionState.PENDING;
-    private MissionType type;
+    protected MissionType type;
     private Skill[] requiredSkills;
     private Agent[] assignedAgents;
     private EquipmentType[] requiredRobotEquipment;
@@ -288,8 +288,9 @@ MISSION STEPS:
             return false;
         }
         if (!assignAgents()) {
-            return false;
-        }
+        fail(failureReason);
+        return false;
+}
         // Save original locations before moving agents
         originalAgentLocations = new Location[assignedAgents.length];
         for (int i = 0; i < assignedAgents.length; i++) {
@@ -356,7 +357,6 @@ TIME HANDLING
         switch (currentStage) {
             case 0:
                 if (!start()) {
-                    fail(failureReason);
                     return;
                 }
                 printMissionInfo();
@@ -384,26 +384,29 @@ TIME HANDLING
     PRINTING MISSION INFORMATION (including how agents and resources change) 
     -------------------------------------------------------------------------------*/
     public void printMissionInfo(){
-        System.out.printf("Mission Type: %s\nMission State: %s\nLocation: %s\nAgents: %s\n\n",type,state,targetLocation.getLocationType(),Arrays.toString(assignedAgents));
-
-        System.out.println("Resources before/after consumption:");
+        System.out.printf("********************%s MISSION: INFORMATION********************\n\n",type);
+        System.out.printf("Mission State: %s\nLocation: %s\nAgents: %s\n\n",state,targetLocation.getLocationType(),Arrays.toString(assignedAgents));
+        System.out.println("----------------------------------------------------------------------------------------------------");
         printResourceState();
-        System.out.println("Resources consumed by this mission:");
+        System.out.println("----------------------------------------------------------------------------------------------------");
+        System.out.printf("Resources consumed by this mission:\n\n");
         for (ResourceUsage usage : consumedResources) {
             System.out.printf("%s: %d units from %s%n",usage.getType(),usage.getAmount(),usage.getSource());
         }
-
+        System.out.println("----------------------------------------------------------------------------------------------------");
         System.out.println("Assigned agents:");
         if (assignedAgents != null) {
             for (Agent agent : assignedAgents) {
-                System.out.println("ID: " + agent.getId());
-                System.out.println("Health: " + agent.getHealth());
-                System.out.println("Location: " + agent.getCurrentLocation());
+                System.out.println("ID: " +agent.getId());
+                System.out.println("Health: " +agent.getHealth());
+                System.out.println("Location: " +agent.getCurrentLocation()+ "\n");
             }
         }
+        System.out.printf("----------------------------------------------------------------------------------------------------\n\n");
         }
+
     private void printResourceState() {
-        System.out.println("Current resource quantities:");
+        System.out.printf("Current resource quantities:\n\n");
 
         for (ResourceType resource : neededTypes) {
             System.out.printf("%s: %d%n",
@@ -419,8 +422,9 @@ TIME HANDLING
     public String getFailureReason() {
         return failureReason;
     }
-    public Agent[] getAssignedAgents(){
-        return Arrays.copyOf(assignedAgents,assignedAgents.length);
+    public Agent[] getAssignedAgents() {
+    if (assignedAgents == null) return new Agent[0];
+    return Arrays.copyOf(assignedAgents, assignedAgents.length);
     }
     public MissionType getMissionType(){
         return type;

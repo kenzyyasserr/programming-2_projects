@@ -17,12 +17,10 @@ public class FireFighter extends HumanPersonnel implements EmergencyResponder
         boolean skilled;
         switch (skill) {
             case FIREFIGHTING:
-                System.out.println("Fire fighter is skilled for this mission");
                 skilled = true;
                 break;
 
             default:
-                System.out.println("Fire fighter is not skilled enough for this mission");
                 skilled = false;
                 break;
         }

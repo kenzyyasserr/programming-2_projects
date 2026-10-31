@@ -33,7 +33,7 @@ public abstract class RoboticUnits extends Agent
             if(batteryLevel + increasOrDecrease < 0) {
                 batteryLevel = 0;
             } else {
-                batteryLevel -= increasOrDecrease;
+                batteryLevel += increasOrDecrease;
             }
         }
         else {
@@ -50,16 +50,12 @@ public abstract class RoboticUnits extends Agent
     {
         if (!isUsable())
         {
-        System.out.println("Robotic unit is unusable.");
         return false;
         }
         if (!hasEquipment(equipmentType))
         {
-            System.out.println("Robotic unit does not have the required equipment.");
             return false;
         }
-
-        System.out.println("Personnel can perform the mission.");
         return true;
     }
 

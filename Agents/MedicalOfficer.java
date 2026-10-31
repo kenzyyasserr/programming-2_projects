@@ -17,16 +17,13 @@ public class MedicalOfficer extends HumanPersonnel implements EmergencyResponder
         boolean skilled;
         switch (skill) {
             case SURGERY:
-                System.out.println("Medical Officer is skilled for this mission");
                 skilled = true;
                 break;
 
             case FIRST_AID:
-                System.out.println("Medical Officer is skilled for this mission");
                 skilled = true;
                 break;
             default:
-                System.out.println("Medical Officer is not skilled enough for this mission");
                 skilled = false;
                 break;
         }

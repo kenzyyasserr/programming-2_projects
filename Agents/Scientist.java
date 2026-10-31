@@ -17,21 +17,21 @@ public class Scientist extends HumanPersonnel
         boolean skilled;
         switch (skill) {
             case BIOLOGY:
-                System.out.println("Scientist is skilled for this mission");
                 skilled = true;
                 break;
 
             case CHEMISTRY:
-                System.out.println("Scientist is skilled for this mission");
                 skilled = true;
                 break;
 
             case GEOLOGY:
-                System.out.println("Scientist is skilled for this mission");
+                skilled = true;
+                break;
+            
+            case VEHICLE_OPERATION:
                 skilled = true;
                 break;
             default:
-                System.out.println("Scientist is not skilled enough for this mission");
                 skilled = false;
                 break;
         }

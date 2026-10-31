@@ -16,6 +16,7 @@ public class RepairMission extends Mission {
     public RepairMission(Location targetLocation,MarsColony colony,CanBeFixed itemToBeFixed){
             super(targetLocation,REPAIR_RESOURCES,NEEDED_AMOUNTS,REPAIR_MISSION_SKILLS,REQUIRED_ROBOT_EQUIPMENT,REQUIRED_FACILITY_EQUIPMENT,colony);
             this.itemToBeFixed = itemToBeFixed;
+            this.type = MissionType.REPAIR;
         }
 
     @Override
@@ -53,7 +54,8 @@ public class RepairMission extends Mission {
             System.out.println("Operational: " + equipment.isOperational());
         }
         else if (itemToBeFixed instanceof ColonyFacility facility) {
-            System.out.println("Damaged: " + facility.isOperational(colony.getEnvironmentCondition()));
+            System.out.println("Operational: " + facility.isOperational(colony.getEnvironmentCondition()));
         }
+        System.out.printf("----------------------------------------------------------------------------------------------------\n\n");
     }
 }
