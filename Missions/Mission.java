@@ -143,7 +143,7 @@ public abstract class Mission implements TimeOperation
             }
         }
         if (!found) {
-            failureReason = "No available robot with equipment: " + equipment;
+            failureReason = "No available robot can operate at " + targetLocation + " with equipment: " + equipment;
             return false;
         }
     }
@@ -218,7 +218,7 @@ CHECKING REQUIRMENTS
                 }
             }
             if (!covered) {
-                failureReason = "No available agent has operational equipment: " + equipment;
+                failureReason = "No available robot can operate at " + targetLocation + " with equipment: " + equipment;
                 return false;
             }
         }

@@ -200,6 +200,95 @@ public class ScenarioExecuter {
 
         runMission(new ResearchMission(lab1, colony));
     }
+    public static void scenario8() {
+        //fix a damaged facility
+        MarsColony colony = new MarsColony();
+        ColonyFacility storage = new StorageFacility("Store1");
+        ColonyFacility lab1    = new Laboratory("Lab1");
+        colony.addLocations(storage);
+        colony.addLocations(lab1);
+
+        lab1.setIsDamaged(true);
+
+        Engineer engineer = new Engineer("Karim", "ENG01", storage, 10);
+        RepairRobot robot = new RepairRobot(storage, "REP01", 100,
+            new Equipment[]{new Equipment(EquipmentType.TOOLKIT), new Equipment(EquipmentType.WELDING_TORCH)});
+        colony.addAgent(engineer);
+        colony.addAgent(robot);
+
+        System.out.println("Lab1 damaged before mission: " + lab1.getIsDamaged());
+        runMission(new RepairMission(lab1, colony, lab1));
+        System.out.println("Lab1 damaged after mission: " + lab1.getIsDamaged());
+}
+    public static void scenario9() {
+        // Rover cannot operate indoors -> mission rejected
+        MarsColony colony = new MarsColony();
+        ColonyFacility habitat = new Habitat("Hab1");
+        ColonyFacility storage = new StorageFacility("Store1");
+        ColonyFacility power   = new PowerStation("Power1");
+        ColonyFacility lab1    = new Laboratory("Lab1");
+        Location mars = colony.getMarsSurface();
+        colony.addLocations(mars);
+        colony.addLocations(lab1);
+        colony.addLocations(habitat);
+        colony.addLocations(storage);
+        colony.addLocations(power);
+
+        colony.addAgent(new Scientist("Salma", "SCI01", lab1, 10));
+        colony.addAgent(new ExplorationRover(mars, "ROV01", 100,
+            new Equipment[]{new Equipment(EquipmentType.DRILL), new Equipment(EquipmentType.SAMPLE_COLLECTOR)}));
+
+        ExplorationMission mission = new ExplorationMission(lab1, colony); // indoor target
+        runMission(mission);
+        System.out.println("Reason: " + mission.getFailureReason());    
+    }
+    public static void scenario10() {
+    // Only one mission at a time
+        MarsColony colony = new MarsColony();
+        ColonyFacility habitat= new Habitat("Hab1");
+        ColonyFacility storage = new StorageFacility("Store1");
+        ColonyFacility power = new PowerStation("Power1");
+        ColonyFacility lab1 = new Laboratory("Lab1");
+        Location mars = colony.getMarsSurface();
+        colony.addLocations(mars);
+        colony.addLocations(lab1);
+        colony.addLocations(habitat);
+        colony.addLocations(storage);
+        colony.addLocations(power);
+
+        colony.addAgent(new Scientist("Salma", "SCI01", lab1, 10));
+        colony.addAgent(new ExplorationRover(mars, "ROV01", 100,
+            new Equipment[]{new Equipment(EquipmentType.DRILL), new Equipment(EquipmentType.SAMPLE_COLLECTOR)}));
+        colony.addAgent(new Scientist("Sara", "SCI02", lab1, 10));
+
+        ExplorationMission missionA = new ExplorationMission(mars, colony);
+        ResearchMission missionB = new ResearchMission(lab1, colony);
+
+        Simulation simulation = new Simulation();
+        simulation.addTimeOperation(missionA);   // A must be registered first
+        simulation.addTimeOperation(missionB);
+
+        //Pass 1: both missions try to start
+        simulation.advanceTime(1);
+        System.out.println("***After pass 1***");
+        System.out.println("Mission A (" + missionA.getMissionType() + "): " + missionA.getMissionState());
+        System.out.println("Mission B (" + missionB.getMissionType() + "): " + missionB.getMissionState());
+        System.out.println("Mission B reason: " + missionB.getFailureReason());
+        System.out.println("Colony active mission is A: " + (colony.getActiveMission()==missionA));
+
+        // Let A finish
+        simulation.advanceTime(2);
+        System.out.println("***After A finished***");
+        System.out.println("Mission A: " + missionA.getMissionState());
+        System.out.println("Colony active mission: " + colony.getActiveMission());
+
+        // Now a new research mission can run
+        ResearchMission missionB2 = new ResearchMission(lab1, colony);
+        simulation.addTimeOperation(missionB2);
+        simulation.advanceTime(3);
+        System.out.println("=== Resubmitted research mission ===");
+        System.out.println("Mission B2: " + missionB2.getMissionState());
+}
     private static void runMission(Mission mission) {
         Simulation simulation = new Simulation();
         simulation.addTimeOperation(mission);
