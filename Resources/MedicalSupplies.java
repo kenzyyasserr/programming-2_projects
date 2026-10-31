@@ -3,7 +3,8 @@ import enums.ResourceType;
 
 
 public class MedicalSupplies extends Resource{
-    public MedicalSupplies(int quantity, int max) {
-        super(quantity, max, ResourceType.MEDICAL_SUPPLIES);
+    private final static int MAX = 100;
+    public MedicalSupplies(int quantity) {
+        super(quantity,100, ResourceType.MEDICAL_SUPPLIES);
     }
 }

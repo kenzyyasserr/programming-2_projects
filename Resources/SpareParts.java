@@ -3,7 +3,8 @@ import enums.ResourceType;
 
 
 public class SpareParts extends Resource {
-    public SpareParts(int quantity, int max) {
-        super(quantity, max, ResourceType.SPARE_PARTS);
+    private final static int MAX = 100;
+    public SpareParts(int quantity) {
+        super(quantity, MAX, ResourceType.SPARE_PARTS);
     }
 }

@@ -3,7 +3,8 @@ import enums.ResourceType;
 
 
 public class Food extends Resource {
-    public Food(int quantity, int max) {
-        super(quantity, max, ResourceType.FOOD);
+    private final static int MAX = 300;
+    public Food(int quantity) {
+        super(quantity, MAX, ResourceType.FOOD);
     }
 }

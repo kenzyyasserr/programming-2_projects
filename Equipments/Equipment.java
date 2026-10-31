@@ -8,7 +8,7 @@ public class Equipment implements CanBeFixed{
         this.type = type;
     }
 
-    public boolean isUsable(){
+    public boolean isOperational(){
         return isOperational;
     }
     public EquipmentType getType(){

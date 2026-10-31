@@ -9,6 +9,12 @@ public class Resource{
     protected ResourceType type;
 
     public Resource(int quantity, int max, ResourceType type) {
+        if(quantity > max){
+            quantity = max;
+        }
+        if(quantity<0){
+            quantity = -quantity;
+        }
         this.quantity = quantity;
         this.max = max;
         this.type = type;

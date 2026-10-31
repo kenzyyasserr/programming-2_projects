@@ -2,7 +2,8 @@ package Resources;
 import enums.ResourceType;
 
 public class Fuel extends Resource {
-    public Fuel(int quantity, int max) {
-        super(quantity, max, ResourceType.FUEL);
+    private final static int MAX = 500;
+    public Fuel(int quantity) {
+        super(quantity, 500, ResourceType.FUEL);
     }
 }

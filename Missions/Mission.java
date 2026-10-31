@@ -6,6 +6,7 @@ import Agents.Agent;
 import enums.*;
 import Locations.*;
 import MarsColonies.MarsColony;
+import Resources.ResourceUsage;
 import TimeConcept.TimeOperation;
 
 public abstract class Mission implements TimeOperation
@@ -25,6 +26,7 @@ public abstract class Mission implements TimeOperation
     private Location[] originalAgentLocations;
     private boolean executionSuccessful; //used to track if execution was successful
     private int currentStage = 0;
+    private ArrayList<ResourceUsage> consumedResources = new ArrayList<>();
 
     public Mission(Location targetLocation,
          ResourceType[] neededTypes, int[] neededAmounts, 
@@ -62,6 +64,7 @@ public abstract class Mission implements TimeOperation
                         failureReason = "Resource Consumption Failed";
                         return false;
                     }
+                    consumedResources.add( new ResourceUsage(neededTypes[i], toConsume, facility));
                     remaining -= toConsume;
                 }
             }
@@ -89,6 +92,7 @@ public abstract class Mission implements TimeOperation
                             failureReason = "Resource Consumption Failed";
                             return false;
                         }
+                        consumedResources.add( new ResourceUsage(neededTypes[i], toConsume, facility));
                         remaining -= toConsume;
                     }
                 }
@@ -376,9 +380,29 @@ TIME HANDLING
     public void setMissionState(MissionState state){
         this.state = state;
     }
+    /*-----------------------------------------------------------------------------
+    PRINTING MISSION INFORMATION (including how agents and resources change) 
+    -------------------------------------------------------------------------------*/
     public void printMissionInfo(){
         System.out.printf("Mission Type: %s\nMission State: %s\nLocation: %s\nAgents: %s\n\n",type,state,targetLocation.getLocationType(),Arrays.toString(assignedAgents));
+        System.out.println("Resources before/after consumption:");
+        printResourceState();
+        System.out.println("Resources consumed by this mission:");
+        for (ResourceUsage usage : consumedResources) {
+            System.out.printf("%s: %d units from %s%n",usage.getType(),usage.getAmount(),usage.getSource());
+        }
     }
+    private void printResourceState() {
+    System.out.println("Current resource quantities:");
+
+    for (ResourceType resource : neededTypes) {
+        System.out.printf("%s: %d%n",
+            resource,
+            colony.getTotalQuantityOfResources(resource)
+        );
+    }
+    }
+    
     /*-----------------------------------------------------
     GETTERS:
     ---------------------------------------------------- */
@@ -393,5 +417,9 @@ TIME HANDLING
     }
     public MissionState getMissionState(){
         return state;
+    }
+    //gets the record for resource consumption in the mission
+    public ArrayList<ResourceUsage> getConsumedResources() {
+        return new ArrayList<>(consumedResources);
     }
 }

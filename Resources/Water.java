@@ -2,7 +2,8 @@ package Resources;
 import enums.ResourceType;
 
 public class Water extends Resource {
-    public Water(int quantity, int max) {
-        super(quantity, max, ResourceType.WATER);
+    private final static int MAX = 1000;
+    public Water(int quantity) {
+        super(quantity, MAX, ResourceType.WATER);
     }
 }

@@ -100,7 +100,7 @@ public abstract class ColonyFacility implements Location,CanBeFixed{
     public boolean hasEquipment(EquipmentType equipmentType){
         if(equipment!=null){
             for(int i=0;i<equipment.length;i++){
-                if(equipment[i].getType()==equipmentType && equipment[i].isUsable()){
+                if(equipment[i].getType()==equipmentType && equipment[i].isOperational()){
                     return true;
                 }
             }
