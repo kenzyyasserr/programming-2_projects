@@ -3,7 +3,6 @@ import Equipments.Equipment;
 import Locations.Location;
 import enums.EquipmentType;
 import enums.HealthStatus;
-import enums.Skill;
 
 
 public abstract class RoboticUnits extends Agent
@@ -67,10 +66,8 @@ public abstract class RoboticUnits extends Agent
     public boolean hasEquipment(EquipmentType equipmentType)
     {
         if(equipment!=null){
-            for (Equipment equipment1 : equipment)
-            {
-                if (equipment1.getType() == equipmentType && equipment1.isUsable())
-                {
+            for (Equipment equipment1 : equipment) {
+                if (equipment1.getType() == equipmentType && equipment1.isOperational()) {
                     return true;
                 }
             }
