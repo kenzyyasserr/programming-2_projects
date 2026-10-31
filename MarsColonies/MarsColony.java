@@ -18,7 +18,10 @@ public class MarsColony
     private Mission activeMission;
     private ArrayList<Agent> agents;
     private Mission reservedMission;   // mission that holds the colony (ASSIGNED or ACTIVE)
-    public MarsColony() {
+    
+    // ------------------------------ Constructor --------------------------------
+    public MarsColony()
+    {
         facilities = new ArrayList<>();
         locations = new ArrayList<>();
         marsSurface = new MarsSurface();
@@ -41,6 +44,7 @@ public class MarsColony
     public ColonyFacility[] getFacilities() {return facilities.toArray(new ColonyFacility[0]);}
     public Location[] getLocations() {return locations.toArray(new Location[0]);}
     public Agent[] getColonyAgents() {return agents.toArray(new Agent[0]);}
+    public Mission getReservedMission() {return reservedMission;}
 
     public boolean setActiveMission(Mission mission)
     {
@@ -66,13 +70,11 @@ public class MarsColony
         }
     }
 
-    public Mission getReservedMission() {
-        return reservedMission;
-    }
-    public void addAgent(Agent agent) {
-    if (agent != null && !agents.contains(agent)) {
-        agents.add(agent);
-    }
+    public void addAgent(Agent agent)
+    {
+        if (agent != null && !agents.contains(agent)) {
+            agents.add(agent);
+        }
     }
 
     public void addLocations(Location location)
@@ -87,9 +89,11 @@ public class MarsColony
             }
         }
     }
-    public void setEnvironmentCondition(EnvironmentCondition condition) {
-    if (condition != null) {
-        this.environmentCondition = condition;
+
+    public void setEnvironmentCondition(EnvironmentCondition condition)
+    {
+        if (condition != null) {
+            this.environmentCondition = condition;
+        }
     }
-}
 }
