@@ -1,12 +1,18 @@
 package Locations;
+import Emergencies.*;
+import Equipments.*;
 import Resources.*;
 import enums.*;
-import Equipments.*;
-import Emergencies.*;
-public class CommunicationStation extends ColonyFacility{
+
+
+public class CommunicationStation extends ColonyFacility
+{
+    // ------------------------- Attributes -------------------------
     private static final int CAPACITY = 500;
 
-    public CommunicationStation(String name){
+    // --------------------- Constructor -------------------------------
+    public CommunicationStation(String name)
+    {
         super(
             name,
             LocationType.COMMUNICATION_STATION,
@@ -15,29 +21,32 @@ public class CommunicationStation extends ColonyFacility{
             new Equipment[] { new Equipment(EquipmentType.ANTENNA)}
         );
     }
+
+    // --------------------------- Methods ---------------------------
     @Override
-    public boolean isIndoorsFacility(){
-        return true;
-    }
+    public boolean isIndoorsFacility() {return true;}
+
     @Override
-    public boolean isOnMarsSurface(){
-        return false; 
-    }  
+    public boolean isOnMarsSurface() {return false;}  
+
     @Override
-    public boolean isGroundVehicleAccessible(){
-        return false;
-    }
+    public boolean isGroundVehicleAccessible(){return false;}
+
     @Override
-    public boolean isOperational(EnvironmentCondition environmentCondition){
-        if(!isEmergencyOccurring() && !getIsDamaged() && environmentCondition!=EnvironmentCondition.COMMUNICATION_DISRUPTION){
+    public boolean isOperational(EnvironmentCondition environmentCondition)
+    {
+        if(!isEmergencyOccurring() && !getIsDamaged() && environmentCondition!=EnvironmentCondition.COMMUNICATION_DISRUPTION)
+        {
             return true;
         }
         else return false;
     }
+
     @Override 
     public boolean setEmergency(Emergency emergency){
         return false; //no emergencies occur in communication stations
     }
+    
     @Override 
     public boolean isEmergencyOccurring(){
         return false; //no emergencies occur in communication stations

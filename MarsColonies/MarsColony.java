@@ -1,14 +1,15 @@
 package MarsColonies;
+import Agents.*;
 import Emergencies.*;
+import Locations.*;
+import Missions.*;
 import enums.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import Locations.*;
-import Resources.*;
-import Missions.*;
-import Agents.*;
 
-public class MarsColony{
+
+public class MarsColony
+{
+    // ------------------------ Attributes ---------------------------------
     private Emergency currentEmergency; //no emergency if null
     private EnvironmentCondition environmentCondition;//normal by default
     private ArrayList<ColonyFacility> facilities; 
@@ -24,6 +25,8 @@ public class MarsColony{
         agents = new ArrayList<>();
         environmentCondition = EnvironmentCondition.NORMAL;
     }
+
+    // ---------------------------------- Methods ----------------------------------
     public int getTotalQuantityOfResources(ResourceType resourceType){ //total resources across all facilities
         int total = 0;
         for(ColonyFacility facility: facilities){
@@ -31,11 +34,18 @@ public class MarsColony{
         }
         return total;
     }
-    public Mission getActiveMission(){
-        return activeMission;
-    }
-    public boolean setActiveMission(Mission mission) {
-        if (mission == null || activeMission == null) {
+
+    public Mission getActiveMission() {return activeMission;}
+    public MarsSurface getMarsSurface(){return marsSurface;}
+    public EnvironmentCondition getEnvironmentCondition() {return environmentCondition;}
+    public ColonyFacility[] getFacilities() {return facilities.toArray(new ColonyFacility[0]);}
+    public Location[] getLocations() {return locations.toArray(new Location[0]);}
+    public Agent[] getColonyAgents() {return agents.toArray(new Agent[0]);}
+
+    public boolean setActiveMission(Mission mission)
+    {
+        if (mission == null || activeMission == null)
+        {
             activeMission = mission;
             return true;
         }
@@ -59,32 +69,19 @@ public class MarsColony{
     public Mission getReservedMission() {
         return reservedMission;
     }
-    public MarsSurface getMarsSurface(){
-        return marsSurface;
-    }
-    public EnvironmentCondition getEnvironmentCondition(){
-        return environmentCondition;
-    }
-    public ColonyFacility[] getFacilities(){
-        return facilities.toArray(new ColonyFacility[0]);
-    }
-    public Location[] getLocations(){
-        return locations.toArray(new Location[0]);
-    }
-    public Agent[] getColonyAgents(){
-        return agents.toArray(new Agent[0]);
-    }
     public void addAgent(Agent agent) {
     if (agent != null && !agents.contains(agent)) {
         agents.add(agent);
     }
     }
 
-    public void addLocations(Location location) {
-        if (location != null && !locations.contains(location)) {
+    public void addLocations(Location location)
+    {
+        if (location != null && !locations.contains(location))
+        {
             locations.add(location);
-
-            if (location instanceof ColonyFacility) {
+            if (location instanceof ColonyFacility)
+            {
                 ColonyFacility facility = (ColonyFacility) location;
                 facilities.add(facility);
             }

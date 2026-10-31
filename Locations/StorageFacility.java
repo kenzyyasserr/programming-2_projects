@@ -1,12 +1,18 @@
 package Locations;
+import Emergencies.*;
+import Equipments.*;
 import Resources.*;
 import enums.*;
-import Equipments.*;
-import Emergencies.*;
-public class StorageFacility extends ColonyFacility{
+
+
+public class StorageFacility extends ColonyFacility
+{
+    // --------------------- Attribute ---------------------------
     private static final int CAPACITY = 500;
 
-    public StorageFacility(String name){
+    // --------------------------- Constructor -----------------------
+    public StorageFacility(String name)
+    {
         super(
             name,
             LocationType.STORAGE_FACILITY,
@@ -15,32 +21,32 @@ public class StorageFacility extends ColonyFacility{
             new Equipment[] { new Equipment(EquipmentType.CARGO_LOADER),new Equipment(EquipmentType.CONTAINERS)}
         );
     }
+
+    // ------------------------------ Methods -------------------------
     @Override
-    public boolean isIndoorsFacility(){
-        return true;
-    }
+    public boolean isIndoorsFacility() {return true;}
+
     @Override
-    public boolean isOnMarsSurface(){
-        return false; 
-    }  
+    public boolean isOnMarsSurface() {return false;}
+
     @Override
-    public boolean isGroundVehicleAccessible(){
-        return false;
-    }
+    public boolean isGroundVehicleAccessible() {return false;}
+
     @Override
-    public boolean isOperational(EnvironmentCondition environmentCondition){
-        if(!isEmergencyOccurring() && !getIsDamaged()){
+    public boolean isOperational(EnvironmentCondition environmentCondition)
+    {
+        if(!isEmergencyOccurring() && !getIsDamaged())
+        {
             return true;
         }
-        else return false;
+        else 
+            return false;
     }
+    
     @Override 
-    public boolean setEmergency(Emergency emergency){
-        return false; //No emergency occurs in storage facility
-    }
+    public boolean setEmergency(Emergency emergency) {return false;} //No emergency occurs in storage facility
+    
     @Override 
-    public boolean isEmergencyOccurring(){
-        return false; //No emergency occurs in storage facility
-    }
+    public boolean isEmergencyOccurring() {return false;} //No emergency occurs in storage facility
 }
 
