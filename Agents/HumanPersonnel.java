@@ -10,9 +10,6 @@ public abstract class HumanPersonnel extends Agent
     protected Skill[] skills;
     protected int fatigueLevel;
 
-    // ---------------------- Abstract Methods -----------------------------
-    public abstract boolean hasSkill(Skill skill);
-
     // ------------------------------ Concrete Methods -------------------------------
     public Skill[] getSkills() {return skills;}
     public String getName() {return name;}
@@ -38,6 +35,13 @@ public abstract class HumanPersonnel extends Agent
             return false;
         }
         return true;
+    }
+    public boolean hasSkill(Skill skill) {
+        if (skills == null) return false;
+        for (Skill s : skills) {
+            if (s == skill) return true;
+        }
+        return false;
     }
     
     // ---------------------- Constructor ------------------------------

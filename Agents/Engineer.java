@@ -13,29 +13,6 @@ public class Engineer extends HumanPersonnel implements RepairAbility
     }
 
     // ---------------- Methods Implementation -----------------
-    @Override
-    public boolean hasSkill(Skill skill)
-    {
-        boolean skilled;
-        switch (skill) {
-            case ELECTRONICS:
-                skilled = true;
-                break;
-
-            case WELDING:
-                skilled = true;
-                break;
-
-            case MECHANICS:
-                skilled = true;
-                break;
-            default:
-                skilled = false;
-                break;
-        }
-        return skilled;
-    }
-
     public void repair(CanBeFixed itemToBeFixed){
         if(itemToBeFixed!=null){
             itemToBeFixed.repair();

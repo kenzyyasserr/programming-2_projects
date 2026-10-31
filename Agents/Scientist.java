@@ -11,33 +11,6 @@ public class Scientist extends HumanPersonnel
     }
 
     // ------------------ Methods Implementation ------------------------
-    @Override
-    public boolean hasSkill(Skill skill)
-    {
-        boolean skilled;
-        switch (skill) {
-            case BIOLOGY:
-                skilled = true;
-                break;
-
-            case CHEMISTRY:
-                skilled = true;
-                break;
-
-            case GEOLOGY:
-                skilled = true;
-                break;
-            
-            case VEHICLE_OPERATION:
-                skilled = true;
-                break;
-            default:
-                skilled = false;
-                break;
-        }
-        return skilled;
-    }
-
     public void research()
     {
         fatigueLevel+=5;

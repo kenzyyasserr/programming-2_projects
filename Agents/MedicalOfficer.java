@@ -11,25 +11,6 @@ public class MedicalOfficer extends HumanPersonnel implements EmergencyResponder
     }
 
     // ---------------- Methods Implementation -----------------
-    @Override
-    public boolean hasSkill(Skill skill)
-    {
-        boolean skilled;
-        switch (skill) {
-            case SURGERY:
-                skilled = true;
-                break;
-
-            case FIRST_AID:
-                skilled = true;
-                break;
-            default:
-                skilled = false;
-                break;
-        }
-        return skilled;
-    }
-
     public void rescue()
     {
         fatigueLevel+=5;
