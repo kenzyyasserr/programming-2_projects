@@ -4,8 +4,16 @@ import enums.*;
 import Equipments.*;
 import Emergencies.*;
 public class CommunicationStation extends ColonyFacility{
-    public CommunicationStation(String name,int capacity, Resource[] resources, Equipment[] equipment){
-        super(name,LocationType.COMMUNICATION_STATION,capacity,resources,equipment);
+    private static final int CAPACITY = 500;
+
+    public CommunicationStation(String name){
+        super(
+            name,
+            LocationType.COMMUNICATION_STATION,
+            CAPACITY,
+            new Resource[] {new BatteryPower(100)},
+            new Equipment[] { new Equipment(EquipmentType.ANTENNA)}
+        );
     }
     @Override
     public boolean isIndoorsFacility(){

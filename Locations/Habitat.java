@@ -4,9 +4,16 @@ import enums.*;
 import Equipments.*;
 import Emergencies.*;
 public class Habitat extends ColonyFacility{
-    
-    public Habitat(String name,int capacity, Resource[] resources, Equipment[] equipment){
-        super(name,LocationType.HABITAT,capacity,resources,equipment);
+    private static final int CAPACITY = 500;
+
+    public Habitat(String name){
+        super(
+            name,
+            LocationType.HABITAT,
+            CAPACITY,
+            new Resource[] {new Oxygen(1000),new Food(300)},
+            new Equipment[] { new Equipment(EquipmentType.AIR_SCRUBBER),new Equipment(EquipmentType.WATER_RECYCLER)}
+        );
     }
     @Override
     public boolean isIndoorsFacility(){

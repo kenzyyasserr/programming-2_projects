@@ -2,6 +2,7 @@ package Missions;
 
 import Agents.Agent;
 import Agents.ExplorationRover;
+import Agents.Scientist;
 import enums.*;
 import Locations.*;
 import MarsColonies.MarsColony;
@@ -10,7 +11,7 @@ import MarsColonies.MarsColony;
 public class ExplorationMission extends Mission {
     private static final ResourceType[] EXPLORATION_RESOURCES = {ResourceType.OXYGEN,ResourceType.WATER,ResourceType.FUEL,ResourceType.BATTERY_POWER};
     private static final int[] NEEDED_AMOUNTS = {200,100,100,50};
-    private static final Skill[] EXPLORATION_MISSION_SKILLS = {};
+    private static final Skill[] EXPLORATION_MISSION_SKILLS = {Skill.VEHICLE_OPERATION};
     private static final EquipmentType[] REQUIRED_ROBOT_EQUIPMENT = {EquipmentType.DRILL, EquipmentType.SAMPLE_COLLECTOR};
     private static final EquipmentType[] REQUIRED_FACILITY_EQUIPMENT = {};
 
@@ -26,15 +27,20 @@ public class ExplorationMission extends Mission {
         if (agents == null) {
             return false;
         }
-        boolean roverFound = false;
+        boolean found = false;
         for (Agent agent : agents) {
             if (agent instanceof ExplorationRover) {
                 ExplorationRover rover = (ExplorationRover) agent;
                 rover.explore();
-                roverFound = true;
+                found = true;
+            }
+            else if(agent instanceof Scientist){
+                Scientist scientist = (Scientist) agent;
+                scientist.explore();
+                found = true;
             }
         }
-        return roverFound;
+        return found;
         }
 
     @Override

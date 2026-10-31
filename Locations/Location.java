@@ -11,6 +11,6 @@ public interface Location {
     boolean isEmergencyOccurring(); //returns true if an emergency is occuring in a specific location
     void clearEmergency(); //makes emergency in a place null, used when emergency is over
     Emergency getOngoingEmergency();
-    int getResourceQuantity(ResourceType type,EnvironmentCondition env);
+    int getResourceQuantity(ResourceType type,EnvironmentCondition env); //if facility unavailable (not operational) its resources don't count
     LocationType getLocationType();
 }

@@ -13,7 +13,7 @@ public abstract class ColonyFacility implements Location,CanBeFixed{
     private Equipment[] equipment;
     private String name;
     protected Emergency emergency; //null if no emergency is occuring in the location
-    
+
     public ColonyFacility(String name, LocationType type,int capacity, Resource[] resources, Equipment[] equipment){ 
         this.name = name;
         this.type = type;

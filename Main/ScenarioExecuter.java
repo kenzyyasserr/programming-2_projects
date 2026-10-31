@@ -1,19 +1,26 @@
 package Main;
+import java.util.ArrayList;
+import Agents.Agent;
 import Agents.ExplorationRover;
 import Agents.Scientist;
+import Locations.ColonyFacility;
+import Locations.Laboratory;
+import Locations.MarsSurface;
 import MarsColonies.MarsColony;
 import Missions.ExplorationMission;
+import Missions.Mission;
 import Simulation.Simulation;
+import enums.EnvironmentCondition;
 
 public class ScenarioExecuter {
 
     public static void scenario1() {
-        // Successful Exploration
-        // 1. Create the colony
-        MarsColony colony = new MarsColony(...);
+        MarsColony colony = new MarsColony();
+        
+        ColonyFacility = new Laboratory("Lab1", 10, {}, null)
+        //Create the required agents
 
-        // 2. Create the required agents
-        Scientist scientist = new Scientist(...);
+        Scientist scientist = new Scientist("Salma","2000",ColonyFacility currentLocation,int fatigueLevel);
         ExplorationRover rover = new ExplorationRover(...);
 
         // 3. Add agents and equipment to the colony

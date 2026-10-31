@@ -5,8 +5,16 @@ import Equipments.*;
 import Emergencies.*;
 public class MedicalBay extends ColonyFacility{
     
-    public MedicalBay(String name,int capacity, Resource[] resources, Equipment[] equipment){
-        super(name,LocationType.MEDICAL_BAY,capacity,resources,equipment);
+    private static final int CAPACITY = 50;
+
+    public MedicalBay(String name){
+        super(
+            name,
+            LocationType.MEDICAL_BAY,
+            CAPACITY,
+            new Resource[] {new Oxygen(1000),new Food(300)},
+            new Equipment[] { new Equipment(EquipmentType.AIR_SCRUBBER),new Equipment(EquipmentType.WATER_RECYCLER)}
+        );
     }
     @Override
     public boolean isIndoorsFacility(){
