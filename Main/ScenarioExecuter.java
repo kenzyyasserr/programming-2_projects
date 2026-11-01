@@ -221,7 +221,7 @@ public class ScenarioExecuter {
         System.out.println("Lab1 damaged after mission: " + lab1.getIsDamaged());
 }
     public static void scenario9() {
-        // Rover cannot operate indoors -> mission rejected
+        // Rover cannot operate indoors mission rejected
         MarsColony colony = new MarsColony();
         ColonyFacility habitat = new Habitat("Hab1");
         ColonyFacility storage = new StorageFacility("Store1");
