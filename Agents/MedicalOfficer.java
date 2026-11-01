@@ -1,4 +1,5 @@
 package Agents;
+import Emergencies.*;
 import Locations.ColonyFacility;
 import enums.*;
 
@@ -16,4 +17,28 @@ public class MedicalOfficer extends HumanPersonnel implements EmergencyResponder
         fatigueLevel+=5;
         healthAnalysis(fatigueLevel);
     }    
+
+
+    @Override
+    public boolean isAvailable() {return this.isUsable() && !this.onMission;}
+
+    @Override
+    public boolean canHandleEmergency(EmergencyType type) {return type == EmergencyType.MEDICAL;}
+
+    @Override
+    public void handleEmergency(Emergency incident)
+    {
+        if (this.canHandleEmergency(incident.getEmergencyType()) && this.isAvailable())
+        {
+            System.out.println("MedicalOfficer " + this.getId() + " is handling the emergency: " + incident.getEmergencyType());
+            incident.setEmergencyStatus(EmergencyStatus.RESOLVED); // Mark the emergency as resolved
+        } 
+        else {
+            System.out.println("MedicalOfficer " + this.getId() + " cannot handle the emergency: " + incident.getEmergencyType());
+        }
+    }
+
+
+    @Override
+    public ResponderType getResponderType() {return ResponderType.MEDICAL_OFFICER;}
 }

@@ -1,8 +1,8 @@
 package enums;
 
 public enum EmergencyType {
-    OXYGEN_LEAK, 
-    FIRE, 
-    ROVER_BREAKDOWN, 
-    MEDICAL 
+    OXYGEN_LEAK,   //Scientist, RepairRobot
+    FIRE,          //FireFighter
+    ROVER_BREAKDOWN, //Engineer, RepairRobot
+    MEDICAL //MedicalOfficer, Scientist
 }

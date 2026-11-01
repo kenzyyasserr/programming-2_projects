@@ -3,8 +3,8 @@ package Agents;
 import Emergencies.*;
 import Equipments.*;
 import Locations.Location;
-import enums.EmergencyStatus;
-import enums.EmergencyType;
+import enums.*;
+
 
 public class RepairRobot extends RoboticUnits implements EmergencyResponder,RepairAbility
 {
@@ -15,6 +15,7 @@ public class RepairRobot extends RoboticUnits implements EmergencyResponder,Repa
     }
 
     // -------------------------- Methods ------------------------------
+    @Override
     public void repair(CanBeFixed itemToBeFixed)
     {
         if(itemToBeFixed!=null){
@@ -30,7 +31,7 @@ public class RepairRobot extends RoboticUnits implements EmergencyResponder,Repa
     public boolean isAvailable() {return this.isUsable() && !this.onMission;}
 
     @Override
-    public boolean canHandleEmergency(EmergencyType type) {return type != EmergencyType.MEDICAL && type != EmergencyType.FIRE;}
+    public boolean canHandleEmergency(EmergencyType type) {return type == EmergencyType.ROVER_BREAKDOWN || type == EmergencyType.OXYGEN_LEAK;}
 
     @Override
     public void handleEmergency(Emergency incident)
@@ -44,4 +45,7 @@ public class RepairRobot extends RoboticUnits implements EmergencyResponder,Repa
             System.out.println("RepairRobot " + this.getId() + " cannot handle the emergency: " + incident.getEmergencyType());
         }
     }
+
+    @Override
+    public ResponderType getResponderType() {return ResponderType.REPAIR_ROBOT;}
 }
