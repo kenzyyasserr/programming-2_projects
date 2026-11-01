@@ -1,38 +1,42 @@
 package Missions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import Agents.Agent;
 import Agents.RoboticUnits;
-import enums.*;
 import Locations.*;
 import MarsColonies.MarsColony;
 import Resources.ResourceUsage;
 import TimeConcept.TimeOperation;
+import enums.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public abstract class Mission implements TimeOperation
 {
+    // ----------------------------- Attributes ------------------------------------
     private ResourceType[] neededTypes; 
     private int[] neededAmounts; 
     private MissionState state = MissionState.PENDING;
-    protected MissionType type;
     private Skill[] requiredSkills;
     private Agent[] assignedAgents;
     private EquipmentType[] requiredRobotEquipment;
-    protected EquipmentType[] requiredFacilityEquipment;
-    protected Location targetLocation;
     private final int duration=3; //duration time for mission is 3 for all missions because there are three stages
     private String failureReason;
-    protected MarsColony colony;
     private Location[] originalAgentLocations;
     private boolean executionSuccessful; //used to track if execution was successful
     private int currentStage = 0;
     private ArrayList<ResourceUsage> consumedResources = new ArrayList<>();
+    protected MissionType type;
+    protected EquipmentType[] requiredFacilityEquipment;
+    protected Location targetLocation;
+    protected MarsColony colony;
 
+    // ------------------------------------- Constructor -------------------------------------
     public Mission(Location targetLocation,
-         ResourceType[] neededTypes, int[] neededAmounts, 
+        ResourceType[] neededTypes, int[] neededAmounts, 
         Skill[] requiredSkills, EquipmentType[] requiredRobotEquipment,
-        EquipmentType[] requiredFacilityEquipment, MarsColony colony){
+        EquipmentType[] requiredFacilityEquipment, MarsColony colony)
+    {
 
             this.targetLocation = targetLocation;
             this.neededTypes = neededTypes;
@@ -41,15 +45,21 @@ public abstract class Mission implements TimeOperation
             this.requiredRobotEquipment = requiredRobotEquipment;
             this.requiredFacilityEquipment = requiredFacilityEquipment;
             this.colony = colony;
+    }
+
+    // ----------------------------------------- Concrete Methods ------------------------------------
+    public boolean consumeMissionResources() 
+    {
+        if (!hasEnoughResources())
+        {
+            return false;
         }
 
-    public boolean consumeMissionResources() {
-    if (!hasEnoughResources()) {
-        return false;
-    }
-    Location[] locations = colony.getLocations();
-    EnvironmentCondition environmentCondition = colony.getEnvironmentCondition();
-    for (int i = 0; i < neededTypes.length; i++) {
+        Location[] locations = colony.getLocations();
+        EnvironmentCondition environmentCondition = colony.getEnvironmentCondition();
+
+        for (int i = 0; i < neededTypes.length; i++)
+        {
             int remaining = neededAmounts[i];
 
             // Try the target location first
@@ -57,7 +67,8 @@ public abstract class Mission implements TimeOperation
                 neededTypes[i], environmentCondition
             );
 
-            if (targetLocation instanceof ColonyFacility facility) {
+            if (targetLocation instanceof ColonyFacility facility)
+            {
                 int toConsume = Math.min(available, remaining);
 
                 if (toConsume > 0) {
@@ -71,17 +82,15 @@ public abstract class Mission implements TimeOperation
             }
 
             // Get any remaining amount from other locations
-            for (Location location : locations) {
-                if (remaining == 0) {
-                    break;
-                }
+            for (Location location : locations)
+            {
+                if (remaining == 0) {break;}
 
                 // Avoid consuming from the target location twice
-                if (location == targetLocation) {
-                    continue;
-                }
+                if (location == targetLocation) {continue;}
 
-                if (location instanceof ColonyFacility facility) {
+                if (location instanceof ColonyFacility facility) 
+                {
                     available = facility.getResourceQuantity(
                         neededTypes[i], environmentCondition
                     );
@@ -112,48 +121,49 @@ public abstract class Mission implements TimeOperation
     }
 
     private boolean assignAgents() {
-    ArrayList<Agent> temp = new ArrayList<>();
-    for (Skill skill : requiredSkills) {
-        boolean found = false;
-        for (Agent agent : colony.getColonyAgents()) {
-            if (agent != null && agent.canPerformMission(skill)) {
-                if (!temp.contains(agent)) {
-                    temp.add(agent);
+        ArrayList<Agent> temp = new ArrayList<>();
+        for (Skill skill : requiredSkills) {
+            boolean found = false;
+            for (Agent agent : colony.getColonyAgents()) {
+                if (agent != null && agent.canPerformMission(skill)) {
+                    if (!temp.contains(agent)) {
+                        temp.add(agent);
+                    }
+                    found = true;
+                    break;
                 }
-                found = true;
-                break;
+            }
+            if (!found) {
+                failureReason = "No available agent for skill: " + skill;
+                return false;
             }
         }
-        if (!found) {
-            failureReason = "No available agent for skill: " + skill;
-            return false;
-        }
-    }
-    // Assign agents for required robotic equipment
-    for (EquipmentType equipment : requiredRobotEquipment) {
-        boolean found = false;
-        for (Agent agent : colony.getColonyAgents()) {
 
-            if (agent != null && canWorkAt(agent) && agent.canPerformMission(equipment)) {
-                if (!temp.contains(agent)) {
-                    temp.add(agent);
+        // Assign agents for required robotic equipment
+        for (EquipmentType equipment : requiredRobotEquipment) {
+            boolean found = false;
+            for (Agent agent : colony.getColonyAgents()) {
+
+                if (agent != null && canWorkAt(agent) && agent.canPerformMission(equipment)) {
+                    if (!temp.contains(agent)) {
+                        temp.add(agent);
+                    }
+                    found = true;
+                    break;
                 }
-                found = true;
-                break;
+            }
+            if (!found) {
+                failureReason = "No available robot can operate at " + targetLocation + " with equipment: " + equipment;
+                return false;
             }
         }
-        if (!found) {
-            failureReason = "No available robot can operate at " + targetLocation + " with equipment: " + equipment;
-            return false;
+        assignedAgents = temp.toArray(new Agent[0]);
+        // Update their states
+        for (Agent agent : assignedAgents) {
+            agent.setOnMission(this);
         }
+        return true;
     }
-    assignedAgents = temp.toArray(new Agent[0]);
-    // Update their states
-    for (Agent agent : assignedAgents) {
-        agent.setOnMission(this);
-    }
-    return true;
-}
 
 
     private void fail(String reason) {
@@ -172,6 +182,7 @@ CHECKING REQUIRMENTS
         }
         return true;
     }
+
     private boolean noOtherActiveMissions(){
         if (colony.getReservedMission() != null) {
             failureReason = "Another mission is already active";
@@ -192,7 +203,7 @@ CHECKING REQUIRMENTS
         return true;
     }
 
- //checks that required agents with required skills or equipment are available
+    //checks that required agents with required skills or equipment are available
     private boolean hasRequiredAgents(){
         // Check required skills
         for (Skill skill : requiredSkills) {
@@ -222,7 +233,7 @@ CHECKING REQUIRMENTS
                 return false;
             }
         }
-    return true;
+        return true;
     }
 
     private boolean checkEnvironment() {
@@ -244,7 +255,7 @@ CHECKING REQUIRMENTS
                 return true;
             default:
                 return false;
-            }
+        }
     }
 
     private boolean hasRequiredFacilityEquipment() {
@@ -263,6 +274,7 @@ CHECKING REQUIRMENTS
         }
         return true;
     }
+
     //checks all the requirements
     public boolean canStart(){
         if(!noOtherActiveMissions()){
@@ -347,6 +359,7 @@ MISSION STEPS:
     public boolean isFinished(){
         return (state==MissionState.COMPLETED || state==MissionState.FAILED);
     }
+
 /*----------------------------------------------------------------------------------
 Check properties of mission (aka require surface access or no and communication or no)
  -------------------------------------------------------------------------------------*/
@@ -392,6 +405,7 @@ TIME HANDLING
     public void setMissionState(MissionState state){
         this.state = state;
     }
+    
     /*-----------------------------------------------------------------------------
     PRINTING MISSION INFORMATION (including how agents and resources change) 
     -------------------------------------------------------------------------------*/
