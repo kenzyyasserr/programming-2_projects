@@ -9,7 +9,7 @@ public class OxygenLeak extends Emergency {
     private static final ResponderType[] requiredResponders = {ResponderType.REPAIR_ROBOT, ResponderType.SCIENTIST};
     private static final ResourceType[] requiredResources = {ResourceType.OXYGEN, ResourceType.FUEL};
     private static final int[] requiredAmountsOfResources = {5, 10}; // Example amounts, adjust as needed
-    private static final Habitat EmergencyLocation; // This should be set to the specific habitat where the oxygen leak occurs
+    private Habitat EmergencyLocation; // This should be set to the specific habitat where the oxygen leak occurs
     private int oxygenLossAmount;
 
     public OxygenLeak(Habitat EmergencyLocation, int oxygenLossAmount) {
@@ -22,9 +22,15 @@ public class OxygenLeak extends Emergency {
     }
 
     @Override
-    public void applyInitialImpact(MarsColony colony) {
+    public void applyInitialImpact() {
         Habitat affectedHabitat = getAffectedHabitat();
-        affectedHabitat.reduceOxygenLevel(oxygenLossAmount);
+        affectedHabitat.consumeResource(ResourceType.OXYGEN, oxygenLossAmount);
     }
 
-}
+    @Override
+    public void handle() {
+       if(!isEmergencyResolved()){
+            Habitat affectedHabitat = getAffectedHabitat();
+            affectedHabitat.consumeResource(ResourceType.OXYGEN, oxygenLossAmount);
+       }
+     }
